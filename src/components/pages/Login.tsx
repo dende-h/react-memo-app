@@ -7,17 +7,14 @@ export const Login: VFC = memo(() => {
 	const [password, setPassword] = useState<string>("");
 	const API_BASEURL = "https://raisetech-memo-api.herokuapp.com/api";
 	const headers = { "Content-Type": "application/json" };
+	const authKey = {
+		email,
+		password
+	};
 
 	const onClickLoginButton: React.MouseEventHandler<HTMLButtonElement> = async () => {
 		try {
-			const result = await axios.post(
-				API_BASEURL + "/login",
-				{
-					email,
-					password
-				},
-				{ headers }
-			);
+			const result = await axios.post(API_BASEURL + "/login", authKey, { headers });
 			console.log(result);
 		} catch (error) {
 			console.log(error);
