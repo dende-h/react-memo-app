@@ -1,5 +1,5 @@
 import { Box, Button, Divider, Flex, Heading, Input, Stack } from "@chakra-ui/react";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { memo, useState, VFC } from "react";
 
 export const Login: VFC = memo(() => {
@@ -14,8 +14,9 @@ export const Login: VFC = memo(() => {
 
 	const onClickLoginButton: React.MouseEventHandler<HTMLButtonElement> = async () => {
 		try {
-			const result = await axios.post(API_BASEURL + "/login", authKey, { headers });
+			const result: AxiosResponse = await axios.post(API_BASEURL + "/login", authKey, { headers });
 			console.log(result);
+			localStorage.setItem("authToken", result.data.access_token);
 		} catch (error) {
 			console.log(error);
 		}
