@@ -1,4 +1,4 @@
-import { ReactNode, VFC } from "react";
+import { memo, ReactNode, VFC } from "react";
 import {
 	Button,
 	Popover,
@@ -19,7 +19,7 @@ type Props = {
 	atoms?: JSX.Element;
 };
 
-export const PopoverContainer: VFC<Props> = (props: Props) => {
+export const PopoverContainer: VFC<Props> = memo((props: Props) => {
 	const { children, popoverHeaderText, trigger, buttonName = "trigger", atoms } = props;
 
 	return (
@@ -33,4 +33,4 @@ export const PopoverContainer: VFC<Props> = (props: Props) => {
 			</PopoverContent>
 		</Popover>
 	);
-};
+});

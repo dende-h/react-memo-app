@@ -1,11 +1,11 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
-import { VFC } from "react";
+import { memo, VFC } from "react";
 import { ChildrenProps } from "../../types/ChildrenProps";
 import BackgroundImage from "../../image/business-pug-working-on-laptop.jpg";
 import { ReadMe } from "../molecule/ReadMe";
 type Props = ChildrenProps;
 
-export const TitleHeader: VFC<Props> = (props: Props) => {
+export const TitleHeader: VFC<Props> = memo((props: Props) => {
 	const { children } = props;
 	console.log(BackgroundImage);
 	return (
@@ -32,4 +32,4 @@ export const TitleHeader: VFC<Props> = (props: Props) => {
 			</Box>
 		</Box>
 	);
-};
+});

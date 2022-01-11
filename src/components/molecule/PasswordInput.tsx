@@ -1,5 +1,5 @@
 import { Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
-import { useState, VFC } from "react";
+import { memo, useState, VFC } from "react";
 
 type Props = {
 	value: string;
@@ -7,7 +7,7 @@ type Props = {
 	placeholder?: string;
 	bg?: string;
 };
-export const PasswordInput: VFC<Props> = (props: Props) => {
+export const PasswordInput: VFC<Props> = memo((props: Props) => {
 	const { value, onChange, placeholder, bg } = props;
 	const [isShow, setIsShow] = useState<boolean>(false);
 	const handleClick = () => setIsShow(!isShow);
@@ -31,4 +31,4 @@ export const PasswordInput: VFC<Props> = (props: Props) => {
 			</InputGroup>
 		</>
 	);
-};
+});

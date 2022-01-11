@@ -1,8 +1,24 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
+import { useRecoilState } from "recoil";
 import { SlideSwitch } from "../atoms/SlideSwitch";
 import { PopoverContainer } from "../templates/PopoverContainer";
+import { isOnSwitch } from "../../globalState/isOnSwitch";
+import { useNavigate } from "react-router-dom";
+import { memo, useEffect } from "react";
 
-export const ReadMe = () => {
+export const ReadMe = memo(() => {
+	const [isOn, setIsOn] = useRecoilState(isOnSwitch);
+	useEffect(() => {
+		setIsOn(false);
+	}, [setIsOn]);
+	const navigate = useNavigate();
+	const onSlideSwitch = () => {
+		setIsOn(!isOn);
+		if (isOn) {
+			navigate("/blank", { state: isOn, replace: true });
+		}
+	};
+
 	return (
 		<PopoverContainer trigger="click" buttonName="Click read me" popoverHeaderText="なんでもメモアプリ">
 			<Box>
@@ -16,10 +32,14 @@ export const ReadMe = () => {
 						<Text>下のスイッチは絶対に押さないで!!</Text>
 					</Box>
 				</Flex>
-				<PopoverContainer trigger={"hover"} popoverHeaderText="絶対ONにしないで" atoms={<SlideSwitch />}>
+				<PopoverContainer
+					trigger={"hover"}
+					popoverHeaderText="絶対ONにしないで"
+					atoms={<SlideSwitch onChange={onSlideSwitch} />}
+				>
 					<Text>ダメですよ？なにしてるんですか？ホバーを外してください</Text>
 				</PopoverContainer>
 			</Box>
 		</PopoverContainer>
 	);
-};
+});

@@ -2,7 +2,7 @@ import { Box, Button, Divider, Flex, Heading, Input, Spinner, Stack } from "@cha
 import axios, { AxiosResponse } from "axios";
 import { memo, useState, VFC } from "react";
 import toast from "react-hot-toast";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import { NavigateFunction, useLocation, useNavigate } from "react-router-dom";
 import { PasswordInput } from "../molecule/PasswordInput";
 
 export const Login: VFC = memo(() => {
@@ -15,6 +15,16 @@ export const Login: VFC = memo(() => {
 		email,
 		password
 	};
+	const { state } = useLocation();
+	console.log(state);
+	// const [isSurprise,setIsSurprise] = useState<boolean>(false)
+	// if (state) {
+	// 	setIsSurprise()
+	// 	toast("Good Job!", {
+	// 		icon: "👏"
+	// 	});
+
+	// }
 	const navigate: NavigateFunction = useNavigate();
 	const onClickLoginButton: React.MouseEventHandler<HTMLButtonElement> = async () => {
 		try {
