@@ -5,9 +5,10 @@ type Props = {
 	value: string;
 	onChange: React.ChangeEventHandler<HTMLInputElement>;
 	placeholder?: string;
+	bg?: string;
 };
 export const PasswordInput: VFC<Props> = (props: Props) => {
-	const { value, onChange, placeholder } = props;
+	const { value, onChange, placeholder, bg } = props;
 	const [isShow, setIsShow] = useState<boolean>(false);
 	const handleClick = () => setIsShow(!isShow);
 
@@ -15,6 +16,7 @@ export const PasswordInput: VFC<Props> = (props: Props) => {
 		<>
 			<InputGroup size="md">
 				<Input
+					bg={bg}
 					pr="4.5rem"
 					value={value}
 					type={isShow ? "text" : "password"}
