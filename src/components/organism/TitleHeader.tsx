@@ -8,7 +8,7 @@ type Props = ChildrenProps;
 
 export const TitleHeader: VFC<Props> = memo((props: Props) => {
 	const { children } = props;
-	console.log(BackgroundImage);
+
 	return (
 		<TitleFooterLayout>
 			<Box>

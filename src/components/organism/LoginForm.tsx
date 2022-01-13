@@ -1,8 +1,8 @@
 import { Box, Button, Divider, Flex, Heading, Input, Spinner, Stack } from "@chakra-ui/react";
 import axios, { AxiosResponse } from "axios";
-import { memo, useState, VFC } from "react";
+import { memo, useCallback, useState, VFC } from "react";
 import toast from "react-hot-toast";
-import { NavigateFunction, useLocation, useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import { PasswordInput } from "../molecule/PasswordInput";
 
 export const LoginForm: VFC = memo(() => {
@@ -15,30 +15,19 @@ export const LoginForm: VFC = memo(() => {
 		email,
 		password
 	};
-	const { state } = useLocation();
-	console.log(state);
-	// const [isSurprise,setIsSurprise] = useState<boolean>(false)
-	// if (state) {
-	// 	setIsSurprise()
-	// 	toast("Good Job!", {
-	// 		icon: "👏"
-	// 	});
 
-	// }
 	const navigate: NavigateFunction = useNavigate();
-	const onClickLoginButton: React.MouseEventHandler<HTMLButtonElement> = async () => {
+	const onClickLoginButton: React.MouseEventHandler<HTMLButtonElement> = useCallback(async () => {
 		try {
 			setLoading(true);
 			const result: AxiosResponse = await axios.post(API_BASEURL + "/login", authKey, { headers });
-			console.log(result);
 			localStorage.setItem("authToken", result.data.access_token);
 			navigate("/top", { state: result, replace: false });
 		} catch (error) {
-			console.log(error);
 			setLoading(false);
 			toast.error("ログインできません!");
 		}
-	};
+	}, []);
 	const onChangeInputEmail: React.ChangeEventHandler<HTMLInputElement> = (e) => {
 		setEmail(e.target.value);
 	};

@@ -4,20 +4,26 @@ import { SlideSwitch } from "../atoms/SlideSwitch";
 import { PopoverContainer } from "../templates/PopoverContainer";
 import { isOnSwitch } from "../../globalState/isOnSwitch";
 import { useNavigate } from "react-router-dom";
-import { memo, useEffect } from "react";
+import { memo, useCallback } from "react";
+import toast from "react-hot-toast";
 
 export const ReadMe = memo(() => {
 	const [isOn, setIsOn] = useRecoilState(isOnSwitch);
-	useEffect(() => {
-		setIsOn(false);
-	}, [setIsOn]);
 	const navigate = useNavigate();
-	const onSlideSwitch = () => {
-		setIsOn(!isOn);
-		if (isOn) {
-			navigate("/blank", { state: isOn, replace: true });
+	const onSlideSwitch: (event: React.ChangeEvent<HTMLInputElement>) => void = useCallback(() => {
+		setTimeout(() => {
+			if (isOn) {
+				toast.error("シャットダウンします");
+				setIsOn(false);
+				navigate("/blank", { state: isOn, replace: true });
+			}
+		}, 3000);
+		if (!isOn) {
+			toast("へいへ～い♪", {
+				icon: "👏"
+			});
 		}
-	};
+	}, []);
 
 	return (
 		<PopoverContainer trigger="click" buttonName="Click read me" popoverHeaderText="なんでもメモアプリ">
@@ -37,7 +43,11 @@ export const ReadMe = memo(() => {
 					popoverHeaderText="絶対ONにしないで"
 					atoms={<SlideSwitch onChange={onSlideSwitch} />}
 				>
-					<Text>ダメですよ？なにしてるんですか？ホバーを外してください</Text>
+					{isOn ? (
+						<Text>ダメですよ？なにしてるんですか？ホバーを外してください</Text>
+					) : (
+						<Text>びっくりしましたか？ちょっとしたドッキリですW</Text>
+					)}
 				</PopoverContainer>
 			</Box>
 		</PopoverContainer>
