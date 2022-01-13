@@ -1,11 +1,12 @@
 import { Box, Button, Image, Link, Text } from "@chakra-ui/react";
 import { memo } from "react";
+import { TextEditor } from "../atoms/TextEditor";
 
 const TopPage = memo(() => {
 	return (
 		<>
 			<Box p={5} m={3} backgroundColor="red.200">
-				Toppageです
+				<TextEditor />
 			</Box>
 			<Button fontSize={[20, 30, 40]} colorScheme="cyan">
 				greenbouttom
