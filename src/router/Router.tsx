@@ -4,7 +4,7 @@ import { Blank } from "../components/pages/Blank";
 import { Login } from "../components/pages/Login";
 import Page404 from "../components/pages/Page404";
 import TopPage from "../components/pages/TopPage";
-import FooterLayout from "../components/templates/FooterLayout";
+import HeaderLayout from "../components/templates/HeaderLayout";
 
 export const Router: VFC = (): ReactElement => {
 	return (
@@ -13,9 +13,9 @@ export const Router: VFC = (): ReactElement => {
 			<Route
 				path="/top"
 				element={
-					<FooterLayout>
+					<HeaderLayout>
 						<TopPage />
-					</FooterLayout>
+					</HeaderLayout>
 				}
 			/>
 			<Route path="/blank" element={<Blank />} />
