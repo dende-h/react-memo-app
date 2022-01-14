@@ -1,6 +1,6 @@
 import { Box, Button, Divider, Flex, Heading, Input, Spinner, Stack } from "@chakra-ui/react";
 import axios, { AxiosResponse } from "axios";
-import { memo, useCallback, useState, VFC } from "react";
+import { memo, useState, VFC } from "react";
 import toast from "react-hot-toast";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { PasswordInput } from "../molecule/PasswordInput";
@@ -17,17 +17,19 @@ export const LoginForm: VFC = memo(() => {
 	};
 
 	const navigate: NavigateFunction = useNavigate();
-	const onClickLoginButton: React.MouseEventHandler<HTMLButtonElement> = useCallback(async () => {
+	const onClickLoginButton: React.MouseEventHandler<HTMLButtonElement> = async () => {
 		try {
 			setLoading(true);
 			const result: AxiosResponse = await axios.post(API_BASEURL + "/login", authKey, { headers });
 			localStorage.setItem("authToken", result.data.access_token);
+			console.log(result);
 			navigate("/top", { state: result, replace: false });
 		} catch (error) {
 			setLoading(false);
+			console.log(authKey);
 			toast.error("ログインできません!");
 		}
-	}, []);
+	};
 	const onChangeInputEmail: React.ChangeEventHandler<HTMLInputElement> = (e) => {
 		setEmail(e.target.value);
 	};
