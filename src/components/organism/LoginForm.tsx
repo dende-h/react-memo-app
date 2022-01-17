@@ -1,16 +1,16 @@
 import { Box, Button, Divider, Flex, Heading, Input, Spinner, Stack } from "@chakra-ui/react";
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { memo, useState, VFC } from "react";
 import toast from "react-hot-toast";
 import { NavigateFunction, useNavigate } from "react-router-dom";
+import { loginApi } from "../../env/api";
 import { PasswordInput } from "../molecule/PasswordInput";
 
 export const LoginForm: VFC = memo(() => {
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 	const [loading, setLoading] = useState<boolean>(false);
-	const API_BASEURL = "https://raisetech-memo-api.herokuapp.com/api";
-	const headers = { "Content-Type": "application/json" };
+
 	const authKey = {
 		email,
 		password
@@ -20,7 +20,7 @@ export const LoginForm: VFC = memo(() => {
 	const onClickLoginButton: React.MouseEventHandler<HTMLButtonElement> = async () => {
 		try {
 			setLoading(true);
-			const result: AxiosResponse = await axios.post(API_BASEURL + "/login", authKey, { headers });
+			const result: AxiosResponse = await loginApi.post("/login", authKey);
 			localStorage.setItem("authToken", result.data.access_token);
 			console.log(result);
 			navigate("/top", { state: result, replace: false });

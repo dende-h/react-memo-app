@@ -1,5 +1,5 @@
 export type FetchMemoList = {
-	id: "string";
+	id?: "string";
 	title?: "string";
 	category?: "string";
 	description?: "string";

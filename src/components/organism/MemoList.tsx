@@ -1,20 +1,16 @@
-import { Box, Button, Text } from "@chakra-ui/react";
-import axios, { AxiosResponse } from "axios";
-import { useEffect, useState } from "react";
+import { Box, Button } from "@chakra-ui/react";
+import { AxiosResponse } from "axios";
+import { useEffect } from "react";
 import { useRecoilState } from "recoil";
+import { deleteMemoApi, editMemoApi, getMemoApi, inputMemoApi } from "../../env/api";
 import { memoListState } from "../../globalState/memoListState";
 import { FetchMemoList } from "../../types/FetchMemoList";
 
 export const MemoList = () => {
-	const token = localStorage.getItem("authToken");
-	const API_BASEURL = "https://raisetech-memo-api.herokuapp.com/api";
-	const headers = { Authorization: `Bearer ${token}` };
-	const headers2 = { "Content-Type": "application/json" };
-	const postheaders = { headers, headers2 };
 	const body = {
 		title: "今日の講義について",
 		category: "授業メモ",
-		description: "変更されましたww",
+		description: "色々変更しました",
 		date: "2021/08/01",
 		mark_div: 1
 	};
@@ -25,7 +21,7 @@ export const MemoList = () => {
 	}, []);
 	const FetchMemoList = async () => {
 		try {
-			const result: AxiosResponse<Array<FetchMemoList>> = await axios.get(API_BASEURL + "/memos", { headers });
+			const result: AxiosResponse<Array<FetchMemoList>> = await getMemoApi.get("/memos");
 			setMemoList(result.data);
 			console.log(result);
 		} catch (error) {
@@ -35,7 +31,7 @@ export const MemoList = () => {
 	console.log(memoList);
 	const InputMemoList = async () => {
 		try {
-			const result: FetchMemoList = await axios.post(API_BASEURL + "/memo", body, postheaders);
+			const result: FetchMemoList = await inputMemoApi.post("/memo", body);
 			console.log(result);
 		} catch (error) {
 			console.log(error);
@@ -44,7 +40,7 @@ export const MemoList = () => {
 
 	const EditMemoList = async () => {
 		try {
-			const result = await axios.put(API_BASEURL + `/memo/${392}`, body, postheaders);
+			const result = await editMemoApi.put(`/memo/${392}`, body);
 			console.log(result);
 		} catch (error) {
 			console.log(error);
@@ -53,7 +49,7 @@ export const MemoList = () => {
 
 	const DeleteMemoList = async () => {
 		try {
-			const result = await axios.delete(API_BASEURL + `/memo/${386}`, { headers });
+			const result = await deleteMemoApi.delete(`/memo/${386}`);
 			console.log(result);
 		} catch (error) {
 			console.log(error);
