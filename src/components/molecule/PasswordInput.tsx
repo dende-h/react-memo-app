@@ -1,11 +1,12 @@
-import { Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
+import { Button, Input, InputGroup, InputRightElement, ResponsiveValue } from "@chakra-ui/react";
+import { Union } from "@chakra-ui/styled-system/dist/declarations/src/utils";
 import { memo, useState, VFC } from "react";
 
 type Props = {
 	value: string;
 	onChange: React.ChangeEventHandler<HTMLInputElement>;
-	placeholder?: string;
-	bg?: string;
+	placeholder?: string | undefined;
+	bg?: ResponsiveValue<Union<string | (string & unknown)>>;
 };
 export const PasswordInput: VFC<Props> = memo((props: Props) => {
 	const { value, onChange, placeholder, bg } = props;

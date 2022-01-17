@@ -17,9 +17,9 @@ export const MemoList = () => {
 	const [memoList, setMemoList] = useRecoilState<Array<FetchMemoList>>(memoListState);
 
 	useEffect(() => {
-		FetchMemoList();
+		fetchMemoList();
 	}, []);
-	const FetchMemoList = async () => {
+	const fetchMemoList = async () => {
 		try {
 			const result: AxiosResponse<Array<FetchMemoList>> = await getMemoApi.get("/memos");
 			setMemoList(result.data);
@@ -29,7 +29,7 @@ export const MemoList = () => {
 		}
 	};
 	console.log(memoList);
-	const InputMemoList = async () => {
+	const inputMemoList = async () => {
 		try {
 			const result: FetchMemoList = await inputMemoApi.post("/memo", body);
 			console.log(result);
@@ -38,7 +38,7 @@ export const MemoList = () => {
 		}
 	};
 
-	const EditMemoList = async () => {
+	const editMemoList = async () => {
 		try {
 			const result = await editMemoApi.put(`/memo/${392}`, body);
 			console.log(result);
@@ -47,7 +47,7 @@ export const MemoList = () => {
 		}
 	};
 
-	const DeleteMemoList = async () => {
+	const deleteMemoList = async () => {
 		try {
 			const result = await deleteMemoApi.delete(`/memo/${386}`);
 			console.log(result);
@@ -61,10 +61,10 @@ export const MemoList = () => {
 			<Box bg="white" textAlign={"center"} w="sm" minHeight={"xl"} m="4" borderRadius={"lg"}>
 				{memoList.map((item) => item.description)}
 			</Box>
-			<Button onClick={FetchMemoList}>ボタン</Button>
-			<Button onClick={InputMemoList}>ボタン2</Button>
-			<Button onClick={EditMemoList}>ボタン3</Button>
-			<Button onClick={DeleteMemoList}>ボタン4</Button>
+			<Button onClick={fetchMemoList}>ボタン</Button>
+			<Button onClick={inputMemoList}>ボタン2</Button>
+			<Button onClick={editMemoList}>ボタン3</Button>
+			<Button onClick={deleteMemoList}>ボタン4</Button>
 		</>
 	);
 };

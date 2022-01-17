@@ -1,9 +1,6 @@
 import { Link, HStack, Center, Box, Stack } from "@chakra-ui/react";
 
 export const TitleFooter = () => {
-	const onClickLink = (url: string) => {
-		window.location.assign(url);
-	};
 	return (
 		<>
 			<Center bg={"teal.100"} h={"200px"} paddingBottom={10}>
@@ -17,17 +14,18 @@ export const TitleFooter = () => {
 						spacing={["20px", "30px", "100px"]}
 						textAlign={"center"}
 					>
-						<Link onClick={() => onClickLink("https://github.com/dende-h")}>{`DenDe's Github page`}</Link>
-						<Link onClick={() => onClickLink("https://twitter.com/dende49592814")}>Twitter</Link>
-						<Link onClick={() => onClickLink("https://qiita.com/dende-h")}>Qiita My page</Link>
+						<Link href="https://github.com/dende-h" isExternal={true}>{`DenDe's Github page`}</Link>
+						<Link href="https://twitter.com/dende49592814" isExternal={true}>
+							Twitter
+						</Link>
+						<Link href="https://qiita.com/dende-h" isExternal={true}>
+							Qiita My page
+						</Link>
 						<Link
-							onClick={() =>
-								onClickLink("https://perpetual-hemisphere-7a3.notion.site/4d56af5f032b484186cef530f8d77628")
-							}
+							href="https://perpetual-hemisphere-7a3.notion.site/4d56af5f032b484186cef530f8d77628"
+							isExternal={true}
 						>{`Development memo's`}</Link>
-						<Link
-							onClick={() => onClickLink("https://app.build-up.info/portfolio/b5UTNgoTd")}
-						>{`BuildUp portfolio`}</Link>
+						<Link href="https://app.build-up.info/portfolio/b5UTNgoTd" isExternal={true}>{`BuildUp portfolio`}</Link>
 					</HStack>
 				</Stack>
 			</Center>

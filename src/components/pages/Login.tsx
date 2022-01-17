@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useLocation } from "react-router-dom";
 import { LoginForm } from "../organism/LoginForm";
-import TitleHeaderLayout from "../templates/TitleHeaderLayout";
+import TitleHeaderFooterLayout from "../templates/TitleHeaderFooterLayout";
 
 export const Login = memo(() => {
 	const { state } = useLocation();
@@ -19,8 +19,8 @@ export const Login = memo(() => {
 		}
 	}, [state]);
 	return (
-		<TitleHeaderLayout>
+		<TitleHeaderFooterLayout>
 			<LoginForm />
-		</TitleHeaderLayout>
+		</TitleHeaderFooterLayout>
 	);
 });
