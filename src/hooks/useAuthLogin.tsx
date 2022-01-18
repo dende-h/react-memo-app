@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { loginApi } from "../env/api";
+import { loginApi } from "../libs/api";
 
 type Props = {
 	email: string;

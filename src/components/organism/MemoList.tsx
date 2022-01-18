@@ -2,7 +2,7 @@ import { Box, Button } from "@chakra-ui/react";
 import { AxiosResponse } from "axios";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { deleteMemoApi, editMemoApi, getMemoApi, inputMemoApi } from "../../env/api";
+import { memoApi } from "../../libs/api";
 import { memoListState } from "../../globalState/memoListState";
 import { FetchMemoList } from "../../types/FetchMemoList";
 
@@ -10,7 +10,7 @@ export const MemoList = () => {
 	const body = {
 		title: "今日の講義について",
 		category: "授業メモ",
-		description: "色々変更しました",
+		description: "なんでしょう",
 		date: "2021/08/01",
 		mark_div: 1
 	};
@@ -21,7 +21,7 @@ export const MemoList = () => {
 	}, []);
 	const fetchMemoList = async () => {
 		try {
-			const result: AxiosResponse<Array<FetchMemoList>> = await getMemoApi.get("/memos");
+			const result: AxiosResponse<Array<FetchMemoList>> = await memoApi.get("/memos");
 			setMemoList(result.data);
 			console.log(result);
 		} catch (error) {
@@ -31,7 +31,7 @@ export const MemoList = () => {
 	console.log(memoList);
 	const inputMemoList = async () => {
 		try {
-			const result: FetchMemoList = await inputMemoApi.post("/memo", body);
+			const result: FetchMemoList = await memoApi.post("/memo", body);
 			console.log(result);
 		} catch (error) {
 			console.log(error);
@@ -40,7 +40,7 @@ export const MemoList = () => {
 
 	const editMemoList = async () => {
 		try {
-			const result = await editMemoApi.put(`/memo/${392}`, body);
+			const result = await memoApi.put(`/memo/${392}`, body);
 			console.log(result);
 		} catch (error) {
 			console.log(error);
@@ -49,7 +49,7 @@ export const MemoList = () => {
 
 	const deleteMemoList = async () => {
 		try {
-			const result = await deleteMemoApi.delete(`/memo/${386}`);
+			const result = await memoApi.delete(`/memo/${394}`);
 			console.log(result);
 		} catch (error) {
 			console.log(error);
