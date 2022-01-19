@@ -10,9 +10,7 @@
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:jest/recommended",
-    "prettier",
-    "prettier/@typescript-eslint",
-    "prettier/react"
+    "prettier"
   ],
   "globals": {
     "Atomics": "readonly",
@@ -33,5 +31,8 @@
       "version": "detect"
     }
   },
-  "rules": {}
+  "rules": {
+    "react/display-name": "off",
+    "react-hooks/exhaustive-deps": "off"
+  }
 }
