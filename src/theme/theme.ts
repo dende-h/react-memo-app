@@ -9,6 +9,16 @@ const theme = extendTheme({
 				fonts: "メイリオ"
 			}
 		}
+	},
+	componets: {
+		Divider: {
+			colors: {
+				brand: {
+					100: "black",
+					200: "white"
+				}
+			}
+		}
 	}
 });
 export default theme;
