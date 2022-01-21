@@ -16,6 +16,7 @@ import { useEffect, useState, VFC } from "react";
 import { useMemoApi } from "../../hooks/useMemoListApi";
 import { FetchMemoList } from "../../types/FetchMemoList";
 import { TodoCheckBox } from "../atoms/TodoCheckBox";
+import { ModalEditor } from "./ModalEditor";
 
 type Props = { oneMemo: FetchMemoList };
 
@@ -44,6 +45,7 @@ export const OneMemo: VFC<Props> = (props: Props) => {
 			setIsChecked(true);
 		}
 	};
+
 	return (
 		<>
 			<Accordion allowMultiple>
@@ -66,6 +68,7 @@ export const OneMemo: VFC<Props> = (props: Props) => {
 							<HStack justify={"center"}>
 								<Button>edit</Button>
 								<Button>delete</Button>
+								<ModalEditor editMemo={oneMemo} />
 							</HStack>
 						</Stack>
 					</AccordionPanel>
