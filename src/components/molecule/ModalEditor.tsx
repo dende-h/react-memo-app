@@ -10,31 +10,59 @@ import {
 	ModalFooter,
 	ModalHeader,
 	ModalOverlay,
+	Textarea,
 	useDisclosure
 } from "@chakra-ui/react";
-import React, { VFC } from "react";
+import React, { memo, useEffect, useState, VFC } from "react";
+import { useInputForm } from "../../hooks/useInputForm";
+import { useMemoApi } from "../../hooks/useMemoListApi";
+import { useTextArea } from "../../hooks/useTextArea";
 import { FetchMemoList } from "../../types/FetchMemoList";
-import { TodoCheckBox } from "../atoms/TodoCheckBox";
+import { RadioCategory } from "./RadioCategory";
 
 type Props = {
 	editMemo: FetchMemoList;
 };
 
-export const ModalEditor: VFC<Props> = (props: Props) => {
+export const ModalEditor: VFC<Props> = memo((props: Props) => {
 	const { editMemo } = props;
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const title = useInputForm();
+	const description = useTextArea();
+	const [isDisabledSaveButton, setIsDisabledSaveButton] = useState(true);
+	const { editMemoList } = useMemoApi();
 
-	const initialRef: any = React.useRef();
-	const finalRef: any = React.useRef();
+	useEffect(() => {
+		title.value === `${editMemo.title}` && description.value === `${editMemo.description}`
+			? setIsDisabledSaveButton(true)
+			: setIsDisabledSaveButton(false);
+	}, [title.value, description.value]);
+
+	useEffect(() => {
+		if (isOpen) {
+			title.setValue(`${editMemo.title}`);
+			description.setValue(`${editMemo.description}`);
+		} else {
+			title.setValue("");
+			description.setValue("");
+		}
+	}, [isOpen]);
+
+	const onClickSaveButton = () => {
+		console.log("savebuttonclick!");
+		console.log(title.value);
+		console.log(description.value);
+		const body = { ...editMemo, title: title.value, description: description.value };
+		delete body.id;
+		editMemoList(editMemo.id, body);
+		onClose();
+	};
 
 	return (
 		<>
 			<Button onClick={onOpen}>Open Modal</Button>
-			<Button ml={4} ref={finalRef}>
-				Ill receive focus on close
-			</Button>
 
-			<Modal initialFocusRef={initialRef} finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
+			<Modal isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />
 				<ModalContent>
 					<ModalHeader>Create your account</ModalHeader>
@@ -42,28 +70,19 @@ export const ModalEditor: VFC<Props> = (props: Props) => {
 					<ModalBody pb={6}>
 						<FormControl>
 							<FormLabel>Title</FormLabel>
-							<Input ref={initialRef} value={editMemo.title} />
+							<Input defaultValue={editMemo.title} onChange={title.onChangeInputForm} />
 						</FormControl>
 						<FormControl mt={4}>
 							<FormLabel>Date</FormLabel>
-							<Input value={editMemo.date} />
+							<Input defaultValue={editMemo.date} />
 						</FormControl>
-						<FormControl mt={4}>
-							<FormLabel>Category</FormLabel>
-							<Input value={editMemo.category} />
-						</FormControl>
-						<FormControl mt={4}>
-							<FormLabel>Must Todo</FormLabel>
-							<TodoCheckBox>Todoに追加</TodoCheckBox>
-						</FormControl>
-						<FormControl mt={4}>
-							<FormLabel>Description</FormLabel>
-							<Input value={editMemo.description} />
-						</FormControl>
+						<FormLabel>Category</FormLabel>
+						<RadioCategory />
+						<FormLabel>Description</FormLabel>
+						<Textarea defaultValue={editMemo.description} onChange={description.onChangeTextArea} />
 					</ModalBody>
-
 					<ModalFooter>
-						<Button colorScheme="blue" mr={3}>
+						<Button colorScheme="blue" mr={3} onClick={onClickSaveButton} isDisabled={isDisabledSaveButton}>
 							Save
 						</Button>
 						<Button onClick={onClose}>Cancel</Button>
@@ -72,4 +91,4 @@ export const ModalEditor: VFC<Props> = (props: Props) => {
 			</Modal>
 		</>
 	);
-};
+});

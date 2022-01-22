@@ -12,7 +12,7 @@ import {
 	Button,
 	HStack
 } from "@chakra-ui/react";
-import { useEffect, useState, VFC } from "react";
+import { memo, useEffect, useState, VFC } from "react";
 import { useMemoApi } from "../../hooks/useMemoListApi";
 import { FetchMemoList } from "../../types/FetchMemoList";
 import { TodoCheckBox } from "../atoms/TodoCheckBox";
@@ -20,7 +20,7 @@ import { ModalEditor } from "./ModalEditor";
 
 type Props = { oneMemo: FetchMemoList };
 
-export const OneMemo: VFC<Props> = (props: Props) => {
+export const OneMemo: VFC<Props> = memo((props: Props) => {
 	const [isChecked, setIsChecked] = useState(false);
 
 	const { oneMemo } = props;
@@ -76,4 +76,4 @@ export const OneMemo: VFC<Props> = (props: Props) => {
 			</Accordion>
 		</>
 	);
-};
+});
