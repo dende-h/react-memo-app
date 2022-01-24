@@ -13,7 +13,9 @@ import {
 	Textarea,
 	useDisclosure
 } from "@chakra-ui/react";
-import React, { memo, useEffect, useState, VFC } from "react";
+import { memo, useEffect, useState, VFC } from "react";
+import { useRecoilState } from "recoil";
+import { categoryState } from "../../globalState/categoryState";
 import { useInputForm } from "../../hooks/useInputForm";
 import { useMemoApi } from "../../hooks/useMemoListApi";
 import { useTextArea } from "../../hooks/useTextArea";
@@ -29,22 +31,28 @@ export const ModalEditor: VFC<Props> = memo((props: Props) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const title = useInputForm();
 	const description = useTextArea();
+	const [category, setCategory] = useRecoilState(categoryState);
+	console.log(category);
 	const [isDisabledSaveButton, setIsDisabledSaveButton] = useState(true);
 	const { editMemoList } = useMemoApi();
 
 	useEffect(() => {
-		title.value === `${editMemo.title}` && description.value === `${editMemo.description}`
+		title.value === `${editMemo.title}` &&
+		description.value === `${editMemo.description}` &&
+		category === `${editMemo.category}`
 			? setIsDisabledSaveButton(true)
 			: setIsDisabledSaveButton(false);
-	}, [title.value, description.value]);
+	}, [title.value, description.value, category]);
 
 	useEffect(() => {
 		if (isOpen) {
 			title.setValue(`${editMemo.title}`);
 			description.setValue(`${editMemo.description}`);
+			setCategory(`${editMemo.category}`);
 		} else {
 			title.setValue("");
 			description.setValue("");
+			setCategory(`${editMemo.category}`);
 		}
 	}, [isOpen]);
 
@@ -52,7 +60,7 @@ export const ModalEditor: VFC<Props> = memo((props: Props) => {
 		console.log("savebuttonclick!");
 		console.log(title.value);
 		console.log(description.value);
-		const body = { ...editMemo, title: title.value, description: description.value };
+		const body = { ...editMemo, title: title.value, description: description.value, category: category };
 		delete body.id;
 		editMemoList(editMemo.id, body);
 		onClose();
@@ -60,7 +68,7 @@ export const ModalEditor: VFC<Props> = memo((props: Props) => {
 
 	return (
 		<>
-			<Button onClick={onOpen}>Open Modal</Button>
+			<Button onClick={onOpen}>edit</Button>
 
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />
@@ -77,7 +85,7 @@ export const ModalEditor: VFC<Props> = memo((props: Props) => {
 							<Input defaultValue={editMemo.date} />
 						</FormControl>
 						<FormLabel>Category</FormLabel>
-						<RadioCategory />
+						<RadioCategory value={editMemo.category} />
 						<FormLabel>Description</FormLabel>
 						<Textarea defaultValue={editMemo.description} onChange={description.onChangeTextArea} />
 					</ModalBody>

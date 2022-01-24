@@ -46,10 +46,10 @@ export const useMemoApi = () => {
 		}
 	}, []);
 
-	const deleteMemoList = useCallback(async () => {
+	const deleteMemoList = useCallback(async (id: string | undefined) => {
 		try {
-			const result = await memoApi.delete(`/memo/${395}`);
-			console.log(result);
+			await memoApi.delete(`/memo/${id}`);
+			fetchMemoList();
 		} catch (error) {
 			console.log(error);
 		}

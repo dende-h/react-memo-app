@@ -9,7 +9,6 @@ import {
 	Divider,
 	Flex,
 	Spacer,
-	Button,
 	HStack
 } from "@chakra-ui/react";
 import { memo, useEffect, useState, VFC } from "react";
@@ -17,6 +16,7 @@ import { useMemoApi } from "../../hooks/useMemoListApi";
 import { FetchMemoList } from "../../types/FetchMemoList";
 import { TodoCheckBox } from "../atoms/TodoCheckBox";
 import { ModalEditor } from "./ModalEditor";
+import { ModalValidate } from "./ModalValidate";
 
 type Props = { oneMemo: FetchMemoList };
 
@@ -65,10 +65,9 @@ export const OneMemo: VFC<Props> = memo((props: Props) => {
 							</Flex>
 							<Divider color={"brand.100"} />
 							<Box>{oneMemo.description}</Box>
-							<HStack justify={"center"}>
-								<Button>edit</Button>
-								<Button>delete</Button>
+							<HStack justify={"center"} spacing={"6"}>
 								<ModalEditor editMemo={oneMemo} />
+								<ModalValidate deleteMemo={oneMemo} />
 							</HStack>
 						</Stack>
 					</AccordionPanel>
