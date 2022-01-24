@@ -29,8 +29,8 @@ export const useMemoApi = () => {
 
 	const inputMemoList = useCallback(async (body: body) => {
 		try {
-			const result: FetchMemoList = await memoApi.post("/memo", body);
-			console.log(result);
+			await memoApi.post("/memo", body);
+			fetchMemoList();
 		} catch (error) {
 			console.log(error);
 		}

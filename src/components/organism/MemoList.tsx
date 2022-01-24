@@ -5,6 +5,7 @@ import { useMemoApi } from "../../hooks/useMemoListApi";
 import { FetchMemoList } from "../../types/FetchMemoList";
 import { memoListState } from "../../globalState/memoListState";
 import { useSetRecoilState } from "recoil";
+import { ModalInput } from "../molecule/ModalInput";
 
 export const MemoList: VFC = memo(() => {
 	const { fetchMemoList, memoList } = useMemoApi();
@@ -24,6 +25,7 @@ export const MemoList: VFC = memo(() => {
 					<Box as={"h1"} fontFamily={"fantasy"} fontSize={"xl"}>
 						MemoList
 					</Box>
+					<ModalInput />
 					<Divider />
 					<Box>
 						{memoList.map((item, index) => {
