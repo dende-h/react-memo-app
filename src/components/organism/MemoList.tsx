@@ -9,7 +9,7 @@ import { ModalInput } from "../molecule/ModalInput";
 
 export const MemoList: VFC = memo(() => {
 	const { fetchMemoList, memoList } = useMemoApi();
-	const setMemoList = useSetRecoilState(memoListState);
+	const setMemoList = useSetRecoilState<FetchMemoList[]>(memoListState);
 
 	useEffect(() => {
 		fetchMemoList();

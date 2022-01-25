@@ -16,10 +16,12 @@ import {
 import { memo, useEffect, useState, VFC } from "react";
 import { useRecoilState } from "recoil";
 import { categoryState } from "../../globalState/categoryState";
+import { dateState } from "../../globalState/dateState";
 import { useInputForm } from "../../hooks/useInputForm";
 import { useMemoApi } from "../../hooks/useMemoListApi";
 import { useTextArea } from "../../hooks/useTextArea";
 import { FetchMemoList } from "../../types/FetchMemoList";
+import { DatePickerCalendar } from "./DatePickerCalendar";
 import { RadioCategory } from "./RadioCategory";
 
 type Props = {
@@ -32,27 +34,31 @@ export const ModalEditor: VFC<Props> = memo((props: Props) => {
 	const title = useInputForm();
 	const description = useTextArea();
 	const [category, setCategory] = useRecoilState(categoryState);
-	console.log(category);
+	const [date, setDate] = useRecoilState(dateState);
+	console.log(date);
 	const [isDisabledSaveButton, setIsDisabledSaveButton] = useState(true);
 	const { editMemoList } = useMemoApi();
 
 	useEffect(() => {
 		title.value === `${editMemo.title}` &&
 		description.value === `${editMemo.description}` &&
-		category === `${editMemo.category}`
+		category === `${editMemo.category}` &&
+		date === `${editMemo.date}`
 			? setIsDisabledSaveButton(true)
 			: setIsDisabledSaveButton(false);
-	}, [title.value, description.value, category]);
+	}, [title.value, description.value, category, date]);
 
 	useEffect(() => {
 		if (isOpen) {
 			title.setValue(`${editMemo.title}`);
 			description.setValue(`${editMemo.description}`);
 			setCategory(`${editMemo.category}`);
+			setDate(`${editMemo.date}`);
 		} else {
 			title.setValue("");
 			description.setValue("");
 			setCategory(`${editMemo.category}`);
+			setDate(`${editMemo.date}`);
 		}
 	}, [isOpen]);
 
@@ -60,7 +66,7 @@ export const ModalEditor: VFC<Props> = memo((props: Props) => {
 		console.log("savebuttonclick!");
 		console.log(title.value);
 		console.log(description.value);
-		const body = { ...editMemo, title: title.value, description: description.value, category: category };
+		const body = { ...editMemo, title: title.value, description: description.value, category, date };
 		delete body.id;
 		editMemoList(editMemo.id, body);
 		onClose();
@@ -73,7 +79,7 @@ export const ModalEditor: VFC<Props> = memo((props: Props) => {
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />
 				<ModalContent>
-					<ModalHeader>Create your account</ModalHeader>
+					<ModalHeader>Edit Memo</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody pb={6}>
 						<FormControl>
@@ -82,7 +88,7 @@ export const ModalEditor: VFC<Props> = memo((props: Props) => {
 						</FormControl>
 						<FormControl mt={4}>
 							<FormLabel>Date</FormLabel>
-							<Input defaultValue={editMemo.date} />
+							<DatePickerCalendar defaultValue={editMemo.date} />
 						</FormControl>
 						<FormLabel>Category</FormLabel>
 						<RadioCategory value={editMemo.category} />

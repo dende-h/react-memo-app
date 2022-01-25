@@ -16,10 +16,13 @@ import {
 import { memo, useEffect, useState, VFC } from "react";
 import { useRecoilState } from "recoil";
 import { categoryState } from "../../globalState/categoryState";
+import { dateState } from "../../globalState/dateState";
 import { useInputForm } from "../../hooks/useInputForm";
 import { useMemoApi } from "../../hooks/useMemoListApi";
 import { useTextArea } from "../../hooks/useTextArea";
+import { DatePickerCalendar } from "./DatePickerCalendar";
 import { RadioCategory } from "./RadioCategory";
+import format from "date-fns/format";
 
 export const ModalInput: VFC = memo(() => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -27,8 +30,12 @@ export const ModalInput: VFC = memo(() => {
 	const description = useTextArea();
 	const [category, setCategory] = useRecoilState(categoryState);
 	console.log(category);
+	const [date, setDate] = useRecoilState(dateState);
 	const [isDisabledSaveButton, setIsDisabledSaveButton] = useState(true);
 	const { inputMemoList } = useMemoApi();
+
+	const initialDate = new Date();
+	setDate(format(initialDate, "yyyy/MM/dd"));
 
 	useEffect(() => {
 		title.value === "" || description.value === "" ? setIsDisabledSaveButton(true) : setIsDisabledSaveButton(false);
@@ -39,6 +46,7 @@ export const ModalInput: VFC = memo(() => {
 			title.setValue("");
 			description.setValue("");
 			setCategory("メモ");
+			setDate("");
 		}
 	}, [isOpen]);
 
@@ -46,7 +54,7 @@ export const ModalInput: VFC = memo(() => {
 		console.log("savebuttonclick!");
 		console.log(title.value);
 		console.log(description.value);
-		const body = { title: title.value, description: description.value, category: category };
+		const body = { title: title.value, description: description.value, category, date };
 		inputMemoList(body);
 		onClose();
 	};
@@ -67,7 +75,7 @@ export const ModalInput: VFC = memo(() => {
 						</FormControl>
 						<FormControl mt={4}>
 							<FormLabel>Date</FormLabel>
-							<Input placeholder="Date" />
+							<DatePickerCalendar defaultValue={date} />
 						</FormControl>
 						<FormLabel>Category</FormLabel>
 						<RadioCategory value={"メモ"} />

@@ -3,6 +3,6 @@ export type FetchMemoList = {
 	title?: string;
 	category?: string;
 	description?: string;
-	date?: string;
+	date: string;
 	mark_div?: number;
 };
