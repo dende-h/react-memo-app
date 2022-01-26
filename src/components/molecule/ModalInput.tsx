@@ -20,9 +20,9 @@ import { dateState } from "../../globalState/dateState";
 import { useInputForm } from "../../hooks/useInputForm";
 import { useMemoApi } from "../../hooks/useMemoListApi";
 import { useTextArea } from "../../hooks/useTextArea";
+import { CustomDatePickerCalendar } from "./CustomDatePickerCalendar";
 import { DatePickerCalendar } from "./DatePickerCalendar";
 import { RadioCategory } from "./RadioCategory";
-import format from "date-fns/format";
 
 export const ModalInput: VFC = memo(() => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -34,9 +34,6 @@ export const ModalInput: VFC = memo(() => {
 	const [isDisabledSaveButton, setIsDisabledSaveButton] = useState(true);
 	const { inputMemoList } = useMemoApi();
 
-	const initialDate = new Date();
-	setDate(format(initialDate, "yyyy/MM/dd"));
-
 	useEffect(() => {
 		title.value === "" || description.value === "" ? setIsDisabledSaveButton(true) : setIsDisabledSaveButton(false);
 	}, [title.value, description.value]);
@@ -46,7 +43,6 @@ export const ModalInput: VFC = memo(() => {
 			title.setValue("");
 			description.setValue("");
 			setCategory("メモ");
-			setDate("");
 		}
 	}, [isOpen]);
 
@@ -66,7 +62,7 @@ export const ModalInput: VFC = memo(() => {
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />
 				<ModalContent>
-					<ModalHeader>Create your account</ModalHeader>
+					<ModalHeader>新しいメモを追加</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody pb={6}>
 						<FormControl>
@@ -75,7 +71,7 @@ export const ModalInput: VFC = memo(() => {
 						</FormControl>
 						<FormControl mt={4}>
 							<FormLabel>Date</FormLabel>
-							<DatePickerCalendar defaultValue={date} />
+							<CustomDatePickerCalendar defaultValue={date} />
 						</FormControl>
 						<FormLabel>Category</FormLabel>
 						<RadioCategory value={"メモ"} />
