@@ -1,6 +1,6 @@
 import {
 	Button,
-	FormControl,
+	Divider,
 	FormLabel,
 	Input,
 	Modal,
@@ -11,7 +11,8 @@ import {
 	ModalHeader,
 	ModalOverlay,
 	Textarea,
-	useDisclosure
+	useDisclosure,
+	Stack
 } from "@chakra-ui/react";
 import { memo, useEffect, useState, VFC } from "react";
 import { useRecoilState } from "recoil";
@@ -21,8 +22,8 @@ import { useInputForm } from "../../hooks/useInputForm";
 import { useMemoApi } from "../../hooks/useMemoListApi";
 import { useTextArea } from "../../hooks/useTextArea";
 import { CustomDatePickerCalendar } from "./CustomDatePickerCalendar";
-import { DatePickerCalendar } from "./DatePickerCalendar";
 import { RadioCategory } from "./RadioCategory";
+import format from "date-fns/format";
 
 export const ModalInput: VFC = memo(() => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -43,13 +44,11 @@ export const ModalInput: VFC = memo(() => {
 			title.setValue("");
 			description.setValue("");
 			setCategory("メモ");
+			setDate(format(new Date(), "yyyy/MM/dd"));
 		}
 	}, [isOpen]);
 
 	const onClickSaveButton = () => {
-		console.log("savebuttonclick!");
-		console.log(title.value);
-		console.log(description.value);
 		const body = { title: title.value, description: description.value, category, date };
 		inputMemoList(body);
 		onClose();
@@ -57,27 +56,31 @@ export const ModalInput: VFC = memo(() => {
 
 	return (
 		<>
-			<Button onClick={onOpen}>input new memo</Button>
-
+			<Button onClick={onOpen}>+</Button>
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />
-				<ModalContent>
-					<ModalHeader>新しいメモを追加</ModalHeader>
-					<ModalCloseButton />
-					<ModalBody pb={6}>
-						<FormControl>
-							<FormLabel>Title</FormLabel>
-							<Input placeholder="Title" onChange={title.onChangeInputForm} />
-						</FormControl>
-						<FormControl mt={4}>
-							<FormLabel>Date</FormLabel>
-							<CustomDatePickerCalendar defaultValue={date} />
-						</FormControl>
-						<FormLabel>Category</FormLabel>
-						<RadioCategory value={"メモ"} />
-						<FormLabel>Description</FormLabel>
-						<Textarea placeholder="Description" onChange={description.onChangeTextArea} />
-					</ModalBody>
+				<ModalContent shadow={"dark-lg"}>
+					<Stack>
+						<ModalHeader fontFamily={"cursive"} fontSize={"xx-large"}>
+							Input New Memo
+						</ModalHeader>
+						<Divider />
+						<ModalCloseButton />
+						<ModalBody pb={6} fontFamily={"mono"}>
+							<Stack spacing={2}>
+								<FormLabel margin={"unset"} fontSize={"xl"}>
+									Title
+								</FormLabel>
+								<Input placeholder="Title" onChange={title.onChangeInputForm} />
+								<FormLabel fontSize={"xl"}>Date</FormLabel>
+								<CustomDatePickerCalendar defaultValue={date} />
+								<FormLabel fontSize={"xl"}>Category</FormLabel>
+								<RadioCategory value={"メモ"} />
+								<FormLabel fontSize={"xl"}>Description</FormLabel>
+								<Textarea placeholder="Description" onChange={description.onChangeTextArea} />
+							</Stack>
+						</ModalBody>
+					</Stack>
 					<ModalFooter>
 						<Button colorScheme="blue" mr={3} onClick={onClickSaveButton} isDisabled={isDisabledSaveButton}>
 							Save

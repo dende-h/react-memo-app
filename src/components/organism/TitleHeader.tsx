@@ -1,7 +1,6 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import { memo, VFC } from "react";
 import { ChildrenProps } from "../../types/ChildrenProps";
-import BackgroundImage from "../../image/business-pug-working-on-laptop.jpg";
 import { ReadMe } from "../molecule/ReadMe";
 import { LoginForm } from "./LoginForm";
 type Props = ChildrenProps;
@@ -10,7 +9,7 @@ export const TitleHeader: VFC<Props> = memo(() => {
 	return (
 		<Box>
 			<Box
-				backgroundImage={`url(${BackgroundImage})`}
+				backgroundImage={`url(${process.env.PUBLIC_URL}/business-pug-working-on-laptop.jpg)`}
 				backgroundPosition="bottom"
 				backgroundSize="cover"
 				textAlign={"center"}

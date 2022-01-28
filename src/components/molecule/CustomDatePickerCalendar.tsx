@@ -25,7 +25,7 @@ export const CustomDatePickerCalendar: VFC<Props> = memo((props: Props) => {
 		const date = format(event, "yyyy/MM/dd");
 		dateValueSet(date);
 	};
-	const years = _.range(2022, getYear(new Date()) + 1, 1);
+	const years = _.range(2020, getYear(new Date()) + 1, 1);
 	const months = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
 	return (
 		<DatePicker
@@ -57,7 +57,6 @@ export const CustomDatePickerCalendar: VFC<Props> = memo((props: Props) => {
 							);
 						})}
 					</select>
-
 					<select
 						value={months[getMonth(date)]}
 						onChange={({ target: { value } }) => changeMonth(months.indexOf(value))}
@@ -68,7 +67,6 @@ export const CustomDatePickerCalendar: VFC<Props> = memo((props: Props) => {
 							</option>
 						))}
 					</select>
-
 					<button onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
 						次の月へ
 					</button>

@@ -1,6 +1,5 @@
 import {
 	Button,
-	FormControl,
 	FormLabel,
 	Input,
 	Modal,
@@ -11,7 +10,9 @@ import {
 	ModalHeader,
 	ModalOverlay,
 	Textarea,
-	useDisclosure
+	useDisclosure,
+	Divider,
+	Stack
 } from "@chakra-ui/react";
 import { memo, useEffect, useState, VFC } from "react";
 import { useRecoilState } from "recoil";
@@ -21,7 +22,7 @@ import { useInputForm } from "../../hooks/useInputForm";
 import { useMemoApi } from "../../hooks/useMemoListApi";
 import { useTextArea } from "../../hooks/useTextArea";
 import { FetchMemoList } from "../../types/FetchMemoList";
-import { DatePickerCalendar } from "./DatePickerCalendar";
+import { CustomDatePickerCalendar } from "./CustomDatePickerCalendar";
 import { RadioCategory } from "./RadioCategory";
 
 type Props = {
@@ -35,7 +36,6 @@ export const ModalEditor: VFC<Props> = memo((props: Props) => {
 	const description = useTextArea();
 	const [category, setCategory] = useRecoilState(categoryState);
 	const [date, setDate] = useRecoilState(dateState);
-	console.log(date);
 	const [isDisabledSaveButton, setIsDisabledSaveButton] = useState(true);
 	const { editMemoList } = useMemoApi();
 
@@ -63,9 +63,6 @@ export const ModalEditor: VFC<Props> = memo((props: Props) => {
 	}, [isOpen]);
 
 	const onClickSaveButton = () => {
-		console.log("savebuttonclick!");
-		console.log(title.value);
-		console.log(description.value);
 		const body = { ...editMemo, title: title.value, description: description.value, category, date };
 		delete body.id;
 		editMemoList(editMemo.id, body);
@@ -75,26 +72,30 @@ export const ModalEditor: VFC<Props> = memo((props: Props) => {
 	return (
 		<>
 			<Button onClick={onOpen}>edit</Button>
-
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />
-				<ModalContent>
-					<ModalHeader>Edit Memo</ModalHeader>
-					<ModalCloseButton />
-					<ModalBody pb={6}>
-						<FormControl>
-							<FormLabel>Title</FormLabel>
-							<Input defaultValue={editMemo.title} onChange={title.onChangeInputForm} />
-						</FormControl>
-						<FormControl mt={4}>
-							<FormLabel>Date</FormLabel>
-							<DatePickerCalendar defaultValue={editMemo.date} />
-						</FormControl>
-						<FormLabel>Category</FormLabel>
-						<RadioCategory value={editMemo.category} />
-						<FormLabel>Description</FormLabel>
-						<Textarea defaultValue={editMemo.description} onChange={description.onChangeTextArea} />
-					</ModalBody>
+				<ModalContent shadow={"dark-lg"}>
+					<Stack>
+						<ModalHeader fontFamily={"cursive"} fontSize={"xx-large"}>
+							Edit Memo
+						</ModalHeader>
+						<Divider />
+						<ModalCloseButton />
+						<ModalBody pb={6} fontFamily={"mono"}>
+							<Stack spacing={2}>
+								<FormLabel margin={"unset"} fontSize={"xl"}>
+									Title
+								</FormLabel>
+								<Input defaultValue={editMemo.title} onChange={title.onChangeInputForm} />
+								<FormLabel fontSize={"xl"}>Date</FormLabel>
+								<CustomDatePickerCalendar defaultValue={editMemo.date} />
+								<FormLabel fontSize={"xl"}>Category</FormLabel>
+								<RadioCategory value={editMemo.category} />
+								<FormLabel fontSize={"xl"}>Description</FormLabel>
+								<Textarea defaultValue={editMemo.description} onChange={description.onChangeTextArea} />
+							</Stack>
+						</ModalBody>
+					</Stack>
 					<ModalFooter>
 						<Button colorScheme="blue" mr={3} onClick={onClickSaveButton} isDisabled={isDisabledSaveButton}>
 							Save
