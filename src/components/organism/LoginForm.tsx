@@ -44,7 +44,7 @@ export const LoginForm: VFC = memo(() => {
 								"ログイン"
 							)}
 						</Button>
-						<Link to={"/login"}>
+						<Link to={"/"}>
 							{" "}
 							<Text
 								as={"h1"}
