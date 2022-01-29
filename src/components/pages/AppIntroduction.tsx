@@ -23,7 +23,7 @@ const AppIntroduction = memo(() => {
 				>
 					<Image
 						src={`${process.env.PUBLIC_URL}/cat9302345_TP_V.jpg`}
-						height={"750px"}
+						height={"800px"}
 						opacity={"0.4"}
 						_hover={{ opacity: "1" }}
 					/>
@@ -39,7 +39,7 @@ const AppIntroduction = memo(() => {
 						<Text as={"h1"} fontSize={"35px"} fontFamily={"cursive"}>
 							A simple notepad that manages everything
 						</Text>
-						<Text as={"h1"} fontSize={"75px"} fontFamily={"cursive"} padding={"9"}>
+						<Text as={"h1"} fontSize={"75px"} fontFamily={"cursive"} padding={"16"}>
 							“ Note Me ”
 						</Text>
 						{introductionTexts.map((item) => {
