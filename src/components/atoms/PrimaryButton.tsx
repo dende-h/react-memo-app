@@ -3,6 +3,7 @@ import {
 	BorderProps,
 	Button,
 	ButtonOptions,
+	ColorProps,
 	CSSObject,
 	EffectProps,
 	SpaceProps,
@@ -19,12 +20,14 @@ type Props = {
 	bgColor?: BackgroundProps["bgColor"];
 	borderRadius?: BorderProps["borderRadius"];
 	size?: ThemingProps<"Button">["size"];
+	color?: ColorProps["color"];
 	shadow?: EffectProps["shadow"];
 	_hover?: CSSObject | undefined;
+	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 };
 
 export const PrimaryButton: VFC<Props> = memo((props: Props) => {
-	const { children, mx, my, borderRadius, p, bgColor, isDisabled, shadow, size, _hover } = props;
+	const { children, mx, my, borderRadius, p, bgColor, isDisabled, shadow, size, color, _hover, onClick } = props;
 	return (
 		<Button
 			mx={mx}
@@ -35,7 +38,9 @@ export const PrimaryButton: VFC<Props> = memo((props: Props) => {
 			isDisabled={isDisabled}
 			shadow={shadow}
 			size={size}
+			color={color}
 			_hover={_hover}
+			onClick={onClick}
 		>
 			{children}
 		</Button>
