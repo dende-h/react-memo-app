@@ -3,7 +3,7 @@ import { Link, HStack, Center, Box, Stack } from "@chakra-ui/react";
 export const TitleFooter = () => {
 	return (
 		<>
-			<Center bg={"teal.100"} h={"150px"} paddingBottom={10}>
+			<Center bg={"teal.100"} h={"150px"} padding={10}>
 				<Stack>
 					<Box textAlign={"center"} fontSize={"30px"} fontFamily={"Century Gothic"} color={"blackAlpha.700"}>
 						Info My Portfolio and SNS

@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Stack } from "@chakra-ui/react";
+import { Box, Heading, Stack } from "@chakra-ui/react";
 import { memo, VFC } from "react";
 import { ChildrenProps } from "../../types/ChildrenProps";
 import { ReadMe } from "../molecule/ReadMe";
@@ -16,34 +16,31 @@ export const TitleHeader: VFC<Props> = memo(() => {
 				backgroundPosition={"bottom"}
 				backgroundSize={"cover"}
 				zIndex={1}
+				_after={{
+					content: `""`,
+					position: "absolute",
+					zIndex: 2,
+					width: "100%",
+					height: "100%",
+					top: 0,
+					left: 0,
+					backgroundColor: "white",
+					opacity: 0.5
+				}}
 			>
-				<Box
-					_after={{
-						content: `""`,
-						position: "absolute",
-						zIndex: 2,
-						width: "100%",
-						height: "100%",
-						top: 0,
-						left: 0,
-						backgroundColor: "white",
-						opacity: 0.5
-					}}
-				>
-					<Stack position={"relative"} zIndex={3} textAlign={"center"}>
-						<Box p={20}>
-							<Heading fontFamily={"cursive"} color="teal" as="h1" size="lg" p={10} fontSize={["30px", "40px", "60px"]}>
-								Let’s “ Note Me ”
-							</Heading>
-							<Box p={5}>
-								<LoginForm />
-							</Box>
-							<Box>
-								<ReadMe />
-							</Box>
+				<Stack position={"relative"} zIndex={3} textAlign={"center"}>
+					<Box p={20}>
+						<Heading fontFamily={"cursive"} color="teal" as="h1" size="lg" p={10} fontSize={["30px", "40px", "60px"]}>
+							Let’s “ Note Me ”
+						</Heading>
+						<Box p={5}>
+							<LoginForm />
 						</Box>
-					</Stack>
-				</Box>
+						<Box>
+							<ReadMe />
+						</Box>
+					</Box>
+				</Stack>
 			</Box>
 		</>
 	);
