@@ -30,7 +30,6 @@ export const ModalInput: VFC = memo(() => {
 	const title = useInputForm();
 	const description = useTextArea();
 	const [category, setCategory] = useRecoilState(categoryState);
-	console.log(category);
 	const [date, setDate] = useRecoilState(dateState);
 	const [isDisabledSaveButton, setIsDisabledSaveButton] = useState(true);
 	const { inputMemoList } = useMemoApi();

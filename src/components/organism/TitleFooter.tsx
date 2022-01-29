@@ -1,6 +1,7 @@
 import { Link, HStack, Center, Box, Stack } from "@chakra-ui/react";
+import { memo } from "react";
 
-export const TitleFooter = () => {
+export const TitleFooter = memo(() => {
 	return (
 		<>
 			<Center bg={"teal.100"} h={"150px"} padding={10}>
@@ -31,4 +32,4 @@ export const TitleFooter = () => {
 			</Center>
 		</>
 	);
-};
+});

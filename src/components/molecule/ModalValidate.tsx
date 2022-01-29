@@ -9,7 +9,7 @@ import {
 	ModalOverlay,
 	useDisclosure
 } from "@chakra-ui/react";
-import { VFC } from "react";
+import { memo, VFC } from "react";
 import { useMemoApi } from "../../hooks/useMemoListApi";
 import { FetchMemoList } from "../../types/FetchMemoList";
 
@@ -17,11 +17,10 @@ type Props = {
 	deleteMemo: FetchMemoList;
 };
 
-export const ModalValidate: VFC<Props> = (props: Props) => {
+export const ModalValidate: VFC<Props> = memo((props: Props) => {
 	const { deleteMemo } = props;
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { deleteMemoList } = useMemoApi();
-
 	const onClickDeleteButton = () => {
 		deleteMemoList(deleteMemo.id);
 	};
@@ -46,4 +45,4 @@ export const ModalValidate: VFC<Props> = (props: Props) => {
 			</Modal>
 		</>
 	);
-};
+});

@@ -1,30 +1,8 @@
-import {
-	BackgroundProps,
-	BorderProps,
-	Button,
-	ButtonOptions,
-	ColorProps,
-	CSSObject,
-	EffectProps,
-	SpaceProps,
-	ThemingProps
-} from "@chakra-ui/react";
-import { memo, ReactNode, VFC } from "react";
+import { Button } from "@chakra-ui/react";
+import { memo, VFC } from "react";
+import { PrimaryButtonProps } from "../../types/PropsTypes";
 
-type Props = {
-	children: ReactNode;
-	mx?: SpaceProps["mx"];
-	my?: SpaceProps["my"];
-	p?: SpaceProps["p"];
-	isDisabled?: ButtonOptions["isDisabled"];
-	bgColor?: BackgroundProps["bgColor"];
-	borderRadius?: BorderProps["borderRadius"];
-	size?: ThemingProps<"Button">["size"];
-	color?: ColorProps["color"];
-	shadow?: EffectProps["shadow"];
-	_hover?: CSSObject | undefined;
-	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
-};
+type Props = PrimaryButtonProps;
 
 export const PrimaryButton: VFC<Props> = memo((props: Props) => {
 	const { children, mx, my, borderRadius, p, bgColor, isDisabled, shadow, size, color, _hover, onClick } = props;
