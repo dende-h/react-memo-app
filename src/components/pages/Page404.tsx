@@ -1,6 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import { memo } from "react";
 import { Link } from "react-router-dom";
+import { PrimaryButton } from "../atoms/PrimaryButton";
 
 const Page404 = memo(() => {
 	return (
@@ -12,9 +13,15 @@ const Page404 = memo(() => {
 			w="100%"
 			h={"1100px"}
 		>
-			<a href="https://jp.freepik.com/vectors/computer">Jcomp - jp.freepik.com によって作成された computer ベクトル</a>
 			<Box>
-				<Link to={"/top"}>Topへ戻る</Link>
+				<a href="https://jp.freepik.com/vectors/computer">
+					Jcomp - jp.freepik.com によって作成された computer ベクトル
+				</a>
+			</Box>
+			<Box>
+				<PrimaryButton bgColor={"cyan.600"} color={"white"}>
+					<Link to={"/"}>Topへ戻る</Link>
+				</PrimaryButton>
 			</Box>
 		</Box>
 	);
