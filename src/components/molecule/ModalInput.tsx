@@ -12,7 +12,8 @@ import {
 	ModalOverlay,
 	Textarea,
 	useDisclosure,
-	Stack
+	Stack,
+	Spinner
 } from "@chakra-ui/react";
 import { memo, useEffect, useState, VFC } from "react";
 import { useRecoilState } from "recoil";
@@ -27,30 +28,29 @@ import format from "date-fns/format";
 
 export const ModalInput: VFC = memo(() => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const title = useInputForm();
-	const description = useTextArea();
+	const { value: title, setValue: setTitle, onChangeInputForm: onChangeTitle } = useInputForm();
+	const { value: description, setValue: setDescription, onChangeTextArea: onChangeDescription } = useTextArea();
 	const [category, setCategory] = useRecoilState(categoryState);
 	const [date, setDate] = useRecoilState(dateState);
 	const [isDisabledSaveButton, setIsDisabledSaveButton] = useState(true);
-	const { inputMemoList } = useMemoApi();
+	const { inputMemoList, loading } = useMemoApi();
 
 	useEffect(() => {
-		title.value === "" || description.value === "" ? setIsDisabledSaveButton(true) : setIsDisabledSaveButton(false);
-	}, [title.value, description.value]);
+		title === "" || description === "" ? setIsDisabledSaveButton(true) : setIsDisabledSaveButton(false);
+	}, [title, description]);
 
 	useEffect(() => {
 		if (isOpen === false) {
-			title.setValue("");
-			description.setValue("");
+			setTitle("");
+			setDescription("");
 			setCategory("メモ");
 			setDate(format(new Date(), "yyyy/MM/dd"));
 		}
 	}, [isOpen]);
 
 	const onClickSaveButton = () => {
-		const body = { title: title.value, description: description.value, category, date };
-		inputMemoList(body);
-		onClose();
+		const body = { title, description, category, date, mark_div: 0 };
+		inputMemoList(body).then(() => onClose());
 	};
 
 	return (
@@ -70,21 +70,27 @@ export const ModalInput: VFC = memo(() => {
 								<FormLabel margin={"unset"} fontSize={"xl"}>
 									Title
 								</FormLabel>
-								<Input placeholder="Title" onChange={title.onChangeInputForm} />
+								<Input placeholder="Title" onChange={onChangeTitle} />
 								<FormLabel fontSize={"xl"}>Date</FormLabel>
 								<CustomDatePickerCalendar defaultValue={date} />
 								<FormLabel fontSize={"xl"}>Category</FormLabel>
 								<RadioCategory value={"メモ"} />
 								<FormLabel fontSize={"xl"}>Description</FormLabel>
-								<Textarea placeholder="Description" onChange={description.onChangeTextArea} />
+								<Textarea placeholder="Description" onChange={onChangeDescription} />
 							</Stack>
 						</ModalBody>
 					</Stack>
 					<ModalFooter>
-						<Button colorScheme="blue" mr={3} onClick={onClickSaveButton} isDisabled={isDisabledSaveButton}>
-							Save
+						<Button colorScheme="blue" mr={3} onClick={onClickSaveButton} isDisabled={isDisabledSaveButton || loading}>
+							{loading ? (
+								<Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="blue.500" size="sm" />
+							) : (
+								"save"
+							)}
 						</Button>
-						<Button onClick={onClose}>Cancel</Button>
+						<Button onClick={onClose} isDisabled={loading}>
+							cancel
+						</Button>
 					</ModalFooter>
 				</ModalContent>
 			</Modal>

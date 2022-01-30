@@ -37,7 +37,7 @@ export const LoginForm: VFC = memo(() => {
 							value={password.value}
 							onChange={password.onChangeInputForm}
 						/>
-						<Button colorScheme={"twitter"} outline="none" onClick={onClickLoginButton}>
+						<Button colorScheme={"twitter"} outline="none" onClick={onClickLoginButton} isDisabled={loading}>
 							{loading ? (
 								<Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="blue.500" size="sm" />
 							) : (

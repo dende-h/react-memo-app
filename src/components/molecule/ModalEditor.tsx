@@ -12,7 +12,8 @@ import {
 	Textarea,
 	useDisclosure,
 	Divider,
-	Stack
+	Stack,
+	Spinner
 } from "@chakra-ui/react";
 import { memo, useEffect, useState, VFC } from "react";
 import { useRecoilState } from "recoil";
@@ -31,42 +32,44 @@ type Props = {
 
 export const ModalEditor: VFC<Props> = memo((props: Props) => {
 	const { editMemo } = props;
+	const { title, description, category, date } = editMemo;
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const title = useInputForm();
-	const description = useTextArea();
-	const [category, setCategory] = useRecoilState(categoryState);
-	const [date, setDate] = useRecoilState(dateState);
+	const { value: newTitle, setValue: setNewTitle, onChangeInputForm: onChangeTitle } = useInputForm();
+	const { value: newDescription, setValue: setNewDescription, onChangeTextArea: onChangeDescription } = useTextArea();
+	const [newCategory, setNewCategory] = useRecoilState(categoryState);
+	const [newDate, setNewDate] = useRecoilState(dateState);
 	const [isDisabledSaveButton, setIsDisabledSaveButton] = useState(true);
-	const { editMemoList } = useMemoApi();
+	const { editMemoList, loading } = useMemoApi();
 
 	useEffect(() => {
-		title.value === `${editMemo.title}` &&
-		description.value === `${editMemo.description}` &&
-		category === `${editMemo.category}` &&
-		date === `${editMemo.date}`
+		(newTitle === `${title}` &&
+			newDescription === `${description}` &&
+			newCategory === `${category}` &&
+			newDate === `${date}`) ||
+		newTitle === "" ||
+		newDescription === ""
 			? setIsDisabledSaveButton(true)
 			: setIsDisabledSaveButton(false);
-	}, [title.value, description.value, category, date]);
+	}, [newTitle, newDescription, newCategory, newDate]);
 
 	useEffect(() => {
 		if (isOpen) {
-			title.setValue(`${editMemo.title}`);
-			description.setValue(`${editMemo.description}`);
-			setCategory(`${editMemo.category}`);
-			setDate(`${editMemo.date}`);
+			setNewTitle(title);
+			setNewDescription(description);
+			setNewCategory(category);
+			setNewDate(date);
 		} else {
-			title.setValue("");
-			description.setValue("");
-			setCategory(`${editMemo.category}`);
-			setDate(`${editMemo.date}`);
+			setNewTitle("");
+			setNewDescription("");
+			setNewCategory(category);
+			setNewDate(date);
 		}
 	}, [isOpen]);
 
 	const onClickSaveButton = () => {
-		const body = { ...editMemo, title: title.value, description: description.value, category, date };
+		const body = { ...editMemo, title: newTitle, description: newDescription, category: newCategory, date: newDate };
 		delete body.id;
-		editMemoList(editMemo.id, body);
-		onClose();
+		editMemoList(editMemo.id, body).then(() => onClose());
 	};
 
 	return (
@@ -86,21 +89,27 @@ export const ModalEditor: VFC<Props> = memo((props: Props) => {
 								<FormLabel margin={"unset"} fontSize={"xl"}>
 									Title
 								</FormLabel>
-								<Input defaultValue={editMemo.title} onChange={title.onChangeInputForm} />
+								<Input defaultValue={title} onChange={onChangeTitle} />
 								<FormLabel fontSize={"xl"}>Date</FormLabel>
-								<CustomDatePickerCalendar defaultValue={editMemo.date} />
+								<CustomDatePickerCalendar defaultValue={date} />
 								<FormLabel fontSize={"xl"}>Category</FormLabel>
-								<RadioCategory value={editMemo.category} />
+								<RadioCategory value={category} />
 								<FormLabel fontSize={"xl"}>Description</FormLabel>
-								<Textarea defaultValue={editMemo.description} onChange={description.onChangeTextArea} />
+								<Textarea defaultValue={description} onChange={onChangeDescription} />
 							</Stack>
 						</ModalBody>
 					</Stack>
 					<ModalFooter>
-						<Button colorScheme="blue" mr={3} onClick={onClickSaveButton} isDisabled={isDisabledSaveButton}>
-							Save
+						<Button colorScheme="blue" mr={3} onClick={onClickSaveButton} isDisabled={isDisabledSaveButton || loading}>
+							{loading ? (
+								<Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="blue.500" size="sm" />
+							) : (
+								"save"
+							)}
 						</Button>
-						<Button onClick={onClose}>Cancel</Button>
+						<Button onClick={onClose} isDisabled={loading}>
+							cancel
+						</Button>
 					</ModalFooter>
 				</ModalContent>
 			</Modal>
