@@ -7,9 +7,7 @@ import { CategoryIsMemo } from "../molecule/CategoryIsMemo";
 export const CategoryMemoList: VFC = memo(() => {
 	const categoryIsMemoList = useRecoilValue(categoryIsMemoState);
 
-	useEffect(() => {
-		console.log(categoryIsMemoList);
-	}, []);
+	console.log(categoryIsMemoList);
 
 	return (
 		<Box>

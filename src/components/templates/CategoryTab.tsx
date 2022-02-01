@@ -1,6 +1,7 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs, useColorModeValue } from "@chakra-ui/react";
 import { ReactNode, useState, VFC } from "react";
 import { CategoryMemoList } from "../organism/CategoryMemoList";
+import { CategoryScheduleList } from "../organism/CategoryScheduleList";
 
 type Props = {
 	children: ReactNode;
@@ -27,7 +28,9 @@ export const CategoryTab: VFC<Props> = (props: Props) => {
 				<TabPanel>
 					<CategoryMemoList />
 				</TabPanel>
-				<TabPanel>ScheduleList</TabPanel>
+				<TabPanel>
+					<CategoryScheduleList />
+				</TabPanel>
 				<TabPanel>TodoList</TabPanel>
 			</TabPanels>
 		</Tabs>
