@@ -1,6 +1,7 @@
 import { memo, ReactNode, VFC } from "react";
 import {
 	Button,
+	PlacementWithLogical,
 	Popover,
 	PopoverArrow,
 	PopoverBody,
@@ -8,6 +9,7 @@ import {
 	PopoverContent,
 	PopoverHeader,
 	PopoverTrigger,
+	TypographyProps,
 	UsePopoverProps
 } from "@chakra-ui/react";
 
@@ -16,17 +18,31 @@ type Props = {
 	popoverHeaderText?: string;
 	trigger: UsePopoverProps["trigger"];
 	buttonName?: string;
-	atoms?: JSX.Element;
+	components?: JSX.Element;
+	placement?: PlacementWithLogical;
+	fontWeight?: TypographyProps["fontWeight"];
+	isOpen?: UsePopoverProps["isOpen"];
 };
 
 export const PopoverContainer: VFC<Props> = memo((props: Props) => {
-	const { children, popoverHeaderText, trigger, buttonName = "trigger", atoms } = props;
+	const {
+		children,
+		popoverHeaderText,
+		trigger,
+		buttonName = "trigger",
+		components,
+		placement,
+		fontWeight,
+		isOpen
+	} = props;
 
 	return (
-		<Popover trigger={trigger}>
-			<PopoverTrigger>{atoms ? <a>{atoms}</a> : <Button colorScheme={"teal"}>{buttonName}</Button>}</PopoverTrigger>
+		<Popover trigger={trigger} placement={placement} isOpen={isOpen}>
+			<PopoverTrigger>
+				{components ? <a>{components}</a> : <Button colorScheme={"teal"}>{buttonName}</Button>}
+			</PopoverTrigger>
 			<PopoverContent>
-				<PopoverHeader fontWeight="bold">{popoverHeaderText}</PopoverHeader>
+				<PopoverHeader fontWeight={fontWeight}>{popoverHeaderText}</PopoverHeader>
 				<PopoverArrow />
 				<PopoverCloseButton />
 				<PopoverBody>{children}</PopoverBody>

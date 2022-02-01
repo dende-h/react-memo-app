@@ -41,7 +41,7 @@ export const ReadMe = memo(() => {
 				<PopoverContainer
 					trigger={"hover"}
 					popoverHeaderText="絶対ONにしないで"
-					atoms={<SlideSwitch onChange={onSlideSwitch} />}
+					components={<SlideSwitch onChange={onSlideSwitch} />}
 				>
 					{isOn ? (
 						<Text>ダメですよ？なにしてるんですか？ホバーを外してください</Text>

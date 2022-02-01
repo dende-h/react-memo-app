@@ -1,9 +1,10 @@
 import { Link, HStack, Center, Box, Stack } from "@chakra-ui/react";
+import { memo } from "react";
 
-export const TitleFooter = () => {
+export const TitleFooter = memo(() => {
 	return (
 		<>
-			<Center bg={"teal.100"} h={"200px"} paddingBottom={10}>
+			<Center bg={"teal.100"} h={"150px"} padding={10}>
 				<Stack>
 					<Box textAlign={"center"} fontSize={"30px"} fontFamily={"Century Gothic"} color={"blackAlpha.700"}>
 						Info My Portfolio and SNS
@@ -31,4 +32,4 @@ export const TitleFooter = () => {
 			</Center>
 		</>
 	);
-};
+});
