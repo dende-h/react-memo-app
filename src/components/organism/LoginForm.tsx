@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Flex, Heading, Input, Spinner, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Divider, Flex, Heading, Input, Stack, Text } from "@chakra-ui/react";
 import { memo, VFC } from "react";
 import { Link } from "react-router-dom";
 import { useAuthLogin } from "../../hooks/useAuthLogin";
@@ -37,12 +37,14 @@ export const LoginForm: VFC = memo(() => {
 							value={password.value}
 							onChange={password.onChangeInputForm}
 						/>
-						<Button colorScheme={"twitter"} outline="none" onClick={onClickLoginButton} isDisabled={loading}>
-							{loading ? (
-								<Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="blue.500" size="sm" />
-							) : (
-								"ログイン"
-							)}
+						<Button
+							colorScheme={"twitter"}
+							outline="none"
+							onClick={onClickLoginButton}
+							isDisabled={loading}
+							isLoading={loading}
+						>
+							ログイン
 						</Button>
 						<Link to={"/"}>
 							{" "}

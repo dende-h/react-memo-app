@@ -12,8 +12,7 @@ import {
 	Textarea,
 	useDisclosure,
 	Divider,
-	Stack,
-	Spinner
+	Stack
 } from "@chakra-ui/react";
 import { memo, useEffect, useState, VFC } from "react";
 import { useRecoilState } from "recoil";
@@ -100,12 +99,14 @@ export const ModalEditor: VFC<Props> = memo((props: Props) => {
 						</ModalBody>
 					</Stack>
 					<ModalFooter>
-						<Button colorScheme="blue" mr={3} onClick={onClickSaveButton} isDisabled={isDisabledSaveButton || loading}>
-							{loading ? (
-								<Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="blue.500" size="sm" />
-							) : (
-								"save"
-							)}
+						<Button
+							colorScheme="blue"
+							mr={3}
+							onClick={onClickSaveButton}
+							isDisabled={isDisabledSaveButton || loading}
+							isLoading={loading}
+						>
+							save
 						</Button>
 						<Button onClick={onClose} isDisabled={loading}>
 							cancel

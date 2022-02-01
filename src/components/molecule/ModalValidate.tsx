@@ -7,7 +7,6 @@ import {
 	ModalFooter,
 	ModalHeader,
 	ModalOverlay,
-	Spinner,
 	useDisclosure
 } from "@chakra-ui/react";
 import { memo, VFC } from "react";
@@ -37,12 +36,8 @@ export const ModalValidate: VFC<Props> = memo((props: Props) => {
 					<ModalCloseButton />
 					<ModalBody pb={6}>削除後は元に戻せません!</ModalBody>
 					<ModalFooter>
-						<Button colorScheme="blue" mr={3} onClick={onClickDeleteButton} isDisabled={loading}>
-							{loading ? (
-								<Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="blue.500" size="sm" />
-							) : (
-								"delete"
-							)}
+						<Button colorScheme="blue" mr={3} onClick={onClickDeleteButton} isDisabled={loading} isLoading={loading}>
+							delete
 						</Button>
 						<Button onClick={onClose} isDisabled={loading}>
 							cancel
