@@ -1,5 +1,6 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs, useColorModeValue } from "@chakra-ui/react";
 import { ReactNode, useState, VFC } from "react";
+import { CategoryMemoList } from "../organism/CategoryMemoList";
 
 type Props = {
 	children: ReactNode;
@@ -7,20 +8,27 @@ type Props = {
 
 export const CategoryTab: VFC<Props> = (props: Props) => {
 	const { children } = props;
-	const colors = useColorModeValue(["red.50", "teal.50", "blue.50"], ["red.900", "teal.900", "blue.900"]);
+	const colors = useColorModeValue(
+		["red.50", "teal.50", "blue.50", "purple.50"],
+		["red.900", "teal.900", "blue.900", "purple.900"]
+	);
 	const [tabIndex, setTabIndex] = useState(0);
 	const bg = colors[tabIndex];
 	return (
 		<Tabs onChange={(index) => setTabIndex(index)} bg={bg}>
 			<TabList>
-				<Tab>Red</Tab>
-				<Tab>Teal</Tab>
-				<Tab>Blue</Tab>
+				<Tab>All</Tab>
+				<Tab>Memo</Tab>
+				<Tab>Schedule</Tab>
+				<Tab>Todo</Tab>
 			</TabList>
 			<TabPanels>
 				<TabPanel>{children}</TabPanel>
-				<TabPanel>Red, yellow and blue.</TabPanel>
-				<TabPanel>Red, yellow and blue.</TabPanel>
+				<TabPanel>
+					<CategoryMemoList />
+				</TabPanel>
+				<TabPanel>ScheduleList</TabPanel>
+				<TabPanel>TodoList</TabPanel>
 			</TabPanels>
 		</Tabs>
 	);

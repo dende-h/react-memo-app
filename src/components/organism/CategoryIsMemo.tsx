@@ -17,31 +17,31 @@ import { TodoCheckBox } from "../molecule/TodoCheckBox";
 import { ModalEditor } from "../molecule/ModalEditor";
 import { ModalValidate } from "../molecule/ModalValidate";
 
-type Props = { oneMemo: FetchMemoList };
+type Props = { categoryIsMemo: FetchMemoList };
 
-export const OneMemo: VFC<Props> = memo((props: Props) => {
-	const { oneMemo } = props;
+export const CategoryIsMemo: VFC<Props> = memo((props: Props) => {
+	const { categoryIsMemo } = props;
 
 	return (
 		<>
 			<Accordion allowMultiple>
 				<AccordionItem>
 					<AccordionButton bg={"yellow.100"} _hover={{ opacity: "0.8" }}>
-						<Box flex={"1"}>{oneMemo.title}</Box>
+						<Box flex={"1"}>{categoryIsMemo.title}</Box>
 						<AccordionIcon />
 					</AccordionButton>
 					<AccordionPanel pb={4} bg={"gray.50"} borderBottomRadius={"md"}>
 						<Stack spacing={"4"}>
 							<Flex>
-								<Box>{oneMemo.date}</Box>
+								<Box>{categoryIsMemo.date}</Box>
 								<Spacer />
-								<TodoCheckBox oneMemo={oneMemo} />
+								<TodoCheckBox oneMemo={categoryIsMemo} />
 							</Flex>
 							<Divider color={"brand.100"} />
-							<Box>{oneMemo.description}</Box>
+							<Box>{categoryIsMemo.description}</Box>
 							<HStack justify={"center"} spacing={"6"}>
-								<ModalEditor editMemo={oneMemo} />
-								<ModalValidate deleteMemo={oneMemo} />
+								<ModalEditor editMemo={categoryIsMemo} />
+								<ModalValidate deleteMemo={categoryIsMemo} />
 							</HStack>
 						</Stack>
 					</AccordionPanel>
