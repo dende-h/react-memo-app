@@ -2,7 +2,7 @@ import { Box, Divider } from "@chakra-ui/react";
 import { memo, useEffect, VFC } from "react";
 import { useRecoilValue } from "recoil";
 import { categoryIsMemoState } from "../../globalState/categoryIsMemoState";
-import { CategoryIsMemo } from "./CategoryIsMemo";
+import { CategoryIsMemo } from "../molecule/CategoryIsMemo";
 
 export const CategoryMemoList: VFC = memo(() => {
 	const categoryIsMemoList = useRecoilValue(categoryIsMemoState);

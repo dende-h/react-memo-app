@@ -1,6 +1,6 @@
 import { Box, Divider, Flex, Spacer, Stack } from "@chakra-ui/react";
 import { memo, useEffect, VFC } from "react";
-import { OneMemo } from "./OneMemo";
+import { OneMemo } from "../molecule/OneMemo";
 import { useMemoApi } from "../../hooks/useMemoListApi";
 import { FetchMemoList } from "../../types/FetchMemoList";
 import { memoListState } from "../../globalState/memoListState";

@@ -13,35 +13,35 @@ import {
 } from "@chakra-ui/react";
 import { memo, VFC } from "react";
 import { FetchMemoList } from "../../types/FetchMemoList";
-import { TodoCheckBox } from "../molecule/TodoCheckBox";
-import { ModalEditor } from "../molecule/ModalEditor";
-import { ModalValidate } from "../molecule/ModalValidate";
+import { TodoCheckBox } from "./TodoCheckBox";
+import { ModalEditor } from "./ModalEditor";
+import { ModalValidate } from "./ModalValidate";
 
-type Props = { categoryIsMemo: FetchMemoList };
+type Props = { oneMemo: FetchMemoList };
 
-export const CategoryIsMemo: VFC<Props> = memo((props: Props) => {
-	const { categoryIsMemo } = props;
+export const OneMemo: VFC<Props> = memo((props: Props) => {
+	const { oneMemo } = props;
 
 	return (
 		<>
 			<Accordion allowMultiple>
 				<AccordionItem>
 					<AccordionButton bg={"yellow.100"} _hover={{ opacity: "0.8" }}>
-						<Box flex={"1"}>{categoryIsMemo.title}</Box>
+						<Box flex={"1"}>{oneMemo.title}</Box>
 						<AccordionIcon />
 					</AccordionButton>
 					<AccordionPanel pb={4} bg={"gray.50"} borderBottomRadius={"md"}>
 						<Stack spacing={"4"}>
 							<Flex>
-								<Box>{categoryIsMemo.date}</Box>
+								<Box>{oneMemo.date}</Box>
 								<Spacer />
-								<TodoCheckBox oneMemo={categoryIsMemo} />
+								<TodoCheckBox oneMemo={oneMemo} />
 							</Flex>
 							<Divider color={"brand.100"} />
-							<Box>{categoryIsMemo.description}</Box>
+							<Box>{oneMemo.description}</Box>
 							<HStack justify={"center"} spacing={"6"}>
-								<ModalEditor editMemo={categoryIsMemo} />
-								<ModalValidate deleteMemo={categoryIsMemo} />
+								<ModalEditor editMemo={oneMemo} />
+								<ModalValidate deleteMemo={oneMemo} />
 							</HStack>
 						</Stack>
 					</AccordionPanel>
