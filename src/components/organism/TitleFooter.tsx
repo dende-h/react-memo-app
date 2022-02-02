@@ -23,7 +23,7 @@ export const TitleFooter = memo(() => {
 							Qiita My page
 						</Link>
 						<Link
-							href="https://perpetual-hemisphere-7a3.notion.site/4d56af5f032b484186cef530f8d77628"
+							href="https://perpetual-hemisphere-7a3.notion.site/My-Portfolio-b03392c7d5cf4ed6a3d5615bba1bb51e"
 							isExternal={true}
 						>{`Development memo's`}</Link>
 						<Link href="https://app.build-up.info/portfolio/b5UTNgoTd" isExternal={true}>{`BuildUp portfolio`}</Link>
