@@ -2,6 +2,7 @@ import { Tab, TabList, TabPanel, TabPanels, Tabs, useColorModeValue } from "@cha
 import { ReactNode, useState, VFC } from "react";
 import { CategoryMemoList } from "../organism/CategoryMemoList";
 import { CategoryScheduleList } from "../organism/CategoryScheduleList";
+import { CategoryTodoList } from "../organism/CategoryTodoList";
 
 type Props = {
 	children: ReactNode;
@@ -31,7 +32,9 @@ export const CategoryTab: VFC<Props> = (props: Props) => {
 				<TabPanel>
 					<CategoryScheduleList />
 				</TabPanel>
-				<TabPanel>TodoList</TabPanel>
+				<TabPanel>
+					<CategoryTodoList />
+				</TabPanel>
 			</TabPanels>
 		</Tabs>
 	);

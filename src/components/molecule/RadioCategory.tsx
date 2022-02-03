@@ -10,7 +10,7 @@ type Props = {
 
 export const RadioCategory: VFC<Props> = memo(() => {
 	const [checkedValue, setCheckedValue] = useRecoilState(categoryState);
-	const categoryList = ["メモ", "スケジュール", "TODOリスト"];
+	const categoryList = ["メモ", "スケジュール", "TODO"];
 
 	return (
 		<RadioGroup onChange={setCheckedValue} value={checkedValue}>

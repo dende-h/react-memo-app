@@ -1,4 +1,4 @@
-import { Box, Button } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 // FullCalendarコンポーネント。
 import FullCalendar from "@fullcalendar/react";
 
@@ -7,23 +7,30 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 
 // FullCalendarで日付や時間が選択できるようになるモジュール。
 import interactionPlugin from "@fullcalendar/interaction";
-import { useState } from "react";
+import { memo, useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { categoryIsScheduleState } from "../../globalState/categoryIsScheduleState";
+import format from "date-fns/format";
 
-export const Calendar = () => {
+export const Calendar = memo(() => {
 	const [addEvent, setAddEvent] = useState([{}]);
+	const schedule = useRecoilValue(categoryIsScheduleState);
 
-	const onAddEvent = () => {
-		const event = {
-			title: "きのぽライブ",
-			date: "2022/02/06"
-		};
-		setAddEvent([event]);
-	};
+	useEffect(() => {
+		console.log(schedule);
+		const events = schedule.map((item) => {
+			const eventDate = format(new Date(item.date), "yyyy-MM-dd");
+			console.log(eventDate);
+			const event = { title: item.title, date: eventDate };
+			return event;
+		});
+		console.log(events);
+		setAddEvent(events);
+	}, [schedule]);
 
 	return (
 		<>
-			<Button onClick={onAddEvent}>登録</Button>
-			<Box>
+			<Box backgroundColor={"gray.50"} w="100%" minHeight="850px" padding={6} borderRadius={10} shadow={"xl"} m={4}>
 				<FullCalendar
 					locale="ja"
 					plugins={[dayGridPlugin, interactionPlugin]}
@@ -38,8 +45,9 @@ export const Calendar = () => {
 						start: "title"
 					}}
 					events={addEvent}
+					contentHeight={"700px"}
 				/>
 			</Box>
 		</>
 	);
-};
+});
