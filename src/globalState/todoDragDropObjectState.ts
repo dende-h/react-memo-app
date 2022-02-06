@@ -1,7 +1,7 @@
 import { selector } from "recoil";
 import { categoryIsTodoState } from "./categoryIsTodoState";
 
-export const todoDragDropObjectState = selector({
+export const todoDragDropObjectState: any = selector({
 	key: "todoDragDropObjectState",
 	get: ({ get }) => {
 		const todoDragItemIds = get(categoryIsTodoState).map((item) => {
