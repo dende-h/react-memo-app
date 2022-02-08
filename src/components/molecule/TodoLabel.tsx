@@ -12,13 +12,8 @@ export const TodoLabel: VFC<Props> = memo((props: Props) => {
 
 	return (
 		<Draggable draggableId={todo.id} index={index}>
-			{(provided, snapshot) => (
-				<Box
-					{...provided.draggableProps}
-					{...provided.dragHandleProps}
-					ref={provided.innerRef}
-					isDragging={snapshot.isDragging}
-				>
+			{(provided) => (
+				<Box {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
 					{todo.title}
 				</Box>
 			)}

@@ -7,20 +7,20 @@ import { TodoLabel } from "./TodoLabel";
 type Props = {
 	id: string;
 	title: string;
-	task: FetchMemoList[];
+	todos: FetchMemoList[];
 };
 
 export const ColumnDropArea: VFC<Props> = memo((props: Props) => {
-	const { id, title, task } = props;
+	const { id, title, todos } = props;
 
 	return (
 		<>
 			<Box>
 				<Text>{title}</Text>
 				<Droppable droppableId={id}>
-					{(provided, snapshot) => (
-						<Box ref={provided.innerRef} {...provided.droppableProps} isDraggingOver={snapshot.isDraggingOver}>
-							{task.map(
+					{(provided) => (
+						<Box ref={provided.innerRef} {...provided.droppableProps}>
+							{todos.map(
 								(item, index) => (
 									<TodoLabel key={item.id} todo={item} index={index} />
 								) //taskとして受け取った配列をマップ関数で繰り返し呼び出すTodoTextコンポーネントに渡す
