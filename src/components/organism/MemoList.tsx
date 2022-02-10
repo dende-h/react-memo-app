@@ -3,7 +3,7 @@ import { memo, useEffect, VFC } from "react";
 import { OneMemo } from "../molecule/OneMemo";
 import { useMemoApi } from "../../hooks/useMemoListApi";
 import { FetchMemoList } from "../../types/FetchMemoList";
-import { memoListState } from "../../globalState/memoListState";
+import { memoListState } from "../../globalState/memo/memoListState";
 import { useSetRecoilState } from "recoil";
 import { ModalInput } from "../molecule/ModalInput";
 import { CategoryTab } from "../templates/CategoryTab";

@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { memoListState } from "../globalState/memoListState";
+import { memoListState } from "../globalState/memo/memoListState";
 import { memoApi } from "../libs/api";
 import { FetchMemoList } from "../types/FetchMemoList";
 

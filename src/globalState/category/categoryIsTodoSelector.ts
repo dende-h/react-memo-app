@@ -1,7 +1,7 @@
 import { selector } from "recoil";
-import { memoListState } from "./memoListState";
+import { memoListState } from "../memo/memoListState";
 
-export const categoryIsTodoState = selector({
+export const categoryIsTodoSelector = selector({
 	key: "categoryIsTodoState",
 	get: ({ get }) => {
 		const categoryIsTodo = get(memoListState).filter((item) => {

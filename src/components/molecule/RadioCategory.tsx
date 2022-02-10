@@ -1,7 +1,7 @@
 import { RadioGroup, Stack } from "@chakra-ui/react";
 import { memo, VFC } from "react";
 import { useRecoilState } from "recoil";
-import { categoryState } from "../../globalState/categoryState";
+import { categoryState } from "../../globalState/category/categoryState";
 import { RadioAtoms } from "../atoms/RadioAtoms";
 
 type Props = {

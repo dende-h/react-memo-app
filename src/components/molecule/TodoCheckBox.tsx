@@ -1,10 +1,10 @@
 import { memo, useEffect, useState, VFC } from "react";
 import { useMemoApi } from "../../hooks/useMemoListApi";
-import { FetchMemoList } from "../../types/FetchMemoList";
+import { bodyType } from "../../types/bodyType";
 import { CheckBox } from "../atoms/CheckBox";
 
 type Props = {
-	oneMemo: FetchMemoList;
+	oneMemo: bodyType;
 };
 
 export const TodoCheckBox: VFC<Props> = memo((props: Props) => {
@@ -18,13 +18,13 @@ export const TodoCheckBox: VFC<Props> = memo((props: Props) => {
 
 	const onChangeCheckBox: ((event: React.ChangeEvent<HTMLInputElement>) => void) | undefined = () => {
 		if (oneMemo.mark_div === 1) {
-			const editOneMemo: FetchMemoList = { ...oneMemo, mark_div: 0 };
+			const editOneMemo: bodyType = { ...oneMemo, mark_div: 0 };
 			delete editOneMemo.id;
 			console.log("1→0");
 			editMemoList(oneMemo.id, editOneMemo);
 			setIsChecked(false);
 		} else if (oneMemo.mark_div === 0) {
-			const editOneMemo: FetchMemoList = { ...oneMemo, mark_div: 1 };
+			const editOneMemo: bodyType = { ...oneMemo, mark_div: 1 };
 			delete editOneMemo.id;
 			console.log("0→1");
 			editMemoList(oneMemo.id, editOneMemo);

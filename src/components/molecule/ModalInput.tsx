@@ -16,8 +16,8 @@ import {
 } from "@chakra-ui/react";
 import { memo, useEffect, useState, VFC } from "react";
 import { useRecoilState } from "recoil";
-import { categoryState } from "../../globalState/categoryState";
-import { dateState } from "../../globalState/dateState";
+import { categoryState } from "../../globalState/category/categoryState";
+import { dateState } from "../../globalState/date/dateState";
 import { useInputForm } from "../../hooks/useInputForm";
 import { useMemoApi } from "../../hooks/useMemoListApi";
 import { useTextArea } from "../../hooks/useTextArea";

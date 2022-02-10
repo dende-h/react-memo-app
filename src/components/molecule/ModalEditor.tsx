@@ -16,12 +16,13 @@ import {
 } from "@chakra-ui/react";
 import { memo, useEffect, useState, VFC } from "react";
 import { useRecoilState } from "recoil";
-import { categoryState } from "../../globalState/categoryState";
-import { dateState } from "../../globalState/dateState";
+import { categoryState } from "../../globalState/category/categoryState";
+import { dateState } from "../../globalState/date/dateState";
 import { useInputForm } from "../../hooks/useInputForm";
 import { useMemoApi } from "../../hooks/useMemoListApi";
 import { useTextArea } from "../../hooks/useTextArea";
 import { FetchMemoList } from "../../types/FetchMemoList";
+import { bodyType } from "../../types/bodyType";
 import { CustomDatePickerCalendar } from "./CustomDatePickerCalendar";
 import { RadioCategory } from "./RadioCategory";
 
@@ -29,6 +30,7 @@ type Props = {
 	editMemo: FetchMemoList;
 };
 
+type body = bodyType;
 export const ModalEditor: VFC<Props> = memo((props: Props) => {
 	const { editMemo } = props;
 	const { title, description, category, date } = editMemo;
@@ -66,7 +68,13 @@ export const ModalEditor: VFC<Props> = memo((props: Props) => {
 	}, [isOpen]);
 
 	const onClickSaveButton = () => {
-		const body = { ...editMemo, title: newTitle, description: newDescription, category: newCategory, date: newDate };
+		const body: body = {
+			...editMemo,
+			title: newTitle,
+			description: newDescription,
+			category: newCategory,
+			date: newDate
+		};
 		delete body.id;
 		editMemoList(editMemo.id, body).then(() => onClose());
 	};

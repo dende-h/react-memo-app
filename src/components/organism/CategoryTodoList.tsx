@@ -1,11 +1,11 @@
 import { Box, Divider } from "@chakra-ui/react";
 import { memo, VFC } from "react";
 import { useRecoilValue } from "recoil";
-import { categoryIsTodoState } from "../../globalState/categoryIsTodoState";
+import { categoryIsTodoSelector } from "../../globalState/category/categoryIsTodoSelector";
 import { CategoryIsTodo } from "../molecule/CategoryIsTodo";
 
 export const CategoryTodoList: VFC = memo(() => {
-	const categoryIsTodoList = useRecoilValue(categoryIsTodoState);
+	const categoryIsTodoList = useRecoilValue(categoryIsTodoSelector);
 
 	return (
 		<Box>

@@ -1,11 +1,11 @@
 import { Box, Divider } from "@chakra-ui/react";
 import { memo, VFC } from "react";
 import { useRecoilValue } from "recoil";
-import { categoryIsScheduleState } from "../../globalState/categoryIsScheduleState";
+import { categoryIsScheduleSelector } from "../../globalState/category/categoryIsScheduleSelector";
 import { CategoryIsSchedule } from "../molecule/CategoryIsSchedule";
 
 export const CategoryScheduleList: VFC = memo(() => {
-	const categoryIsScheduleList = useRecoilValue(categoryIsScheduleState);
+	const categoryIsScheduleList = useRecoilValue(categoryIsScheduleSelector);
 
 	return (
 		<Box>

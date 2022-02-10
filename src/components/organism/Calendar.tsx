@@ -9,12 +9,12 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { memo, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { categoryIsScheduleState } from "../../globalState/categoryIsScheduleState";
+import { categoryIsScheduleSelector } from "../../globalState/category/categoryIsScheduleSelector";
 import format from "date-fns/format";
 
 export const Calendar = memo(() => {
 	const [addEvent, setAddEvent] = useState([{}]);
-	const schedule = useRecoilValue(categoryIsScheduleState);
+	const schedule = useRecoilValue(categoryIsScheduleSelector);
 
 	useEffect(() => {
 		console.log(schedule);

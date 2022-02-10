@@ -7,11 +7,11 @@ import { TodoLabel } from "./TodoLabel";
 type Props = {
 	id: string;
 	title: string;
-	todos: FetchMemoList[];
+	todoArray: (FetchMemoList | undefined)[];
 };
 
 export const ColumnDropArea: VFC<Props> = memo((props: Props) => {
-	const { id, title, todos } = props;
+	const { id, title, todoArray } = props;
 
 	return (
 		<>
@@ -20,9 +20,9 @@ export const ColumnDropArea: VFC<Props> = memo((props: Props) => {
 				<Droppable droppableId={id}>
 					{(provided) => (
 						<Box ref={provided.innerRef} {...provided.droppableProps}>
-							{todos.map(
+							{todoArray?.map(
 								(item, index) => (
-									<TodoLabel key={item.id} todo={item} index={index} />
+									<TodoLabel key={item?.id} todo={item} index={index} />
 								) //taskとして受け取った配列をマップ関数で繰り返し呼び出すTodoTextコンポーネントに渡す
 							)}
 							{provided.placeholder}
