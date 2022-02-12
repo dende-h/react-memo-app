@@ -1,15 +1,18 @@
-import { Box } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 import { memo } from "react";
 import { DragDropContext, DropResult, ResponderProvided } from "react-beautiful-dnd";
 import toast from "react-hot-toast";
-import { useRecoilState } from "recoil";
-import { todoDragDropObjectState } from "../../globalState/board/todoDragDropObjectState";
+
+import { useDragDropData } from "../../hooks/useDragDropData";
+import { useMemoApi } from "../../hooks/useMemoListApi";
 import { ColumnDropArea } from "../molecule/ColumnDropArea";
 
 type onDragEnd = (result: DropResult, provided: ResponderProvided) => void;
 
 export const TodoBoard = memo(() => {
-	const [todoList, setTodoList] = useRecoilState(todoDragDropObjectState);
+	const { todoList, setTodoList } = useDragDropData();
+	const { editMemoList } = useMemoApi();
+
 	console.log(todoList);
 	const columnIds = todoList.dropZoneOrder;
 
@@ -77,11 +80,17 @@ export const TodoBoard = memo(() => {
 				}
 			};
 			setTodoList(newState);
-			if (finish.id === "column-3") {
+			if (finish.id === "column-1") {
 				toast("Todo has started. Do your best!", {
 					icon: "👏"
 				});
-			} else if (finish.id === "column-4") {
+			}
+			if (finish.id === "column-2") {
+				toast("Todo has started. Do your best!", {
+					icon: "👏"
+				});
+			}
+			if (finish.id === "column-3") {
 				toast("Todo is complete. Good job!", {
 					icon: "👏"
 				});
@@ -90,9 +99,9 @@ export const TodoBoard = memo(() => {
 	};
 	return (
 		<>
-			<Box>
+			<Box w={"100%"} m={4}>
 				<DragDropContext onDragEnd={onDragEnd}>
-					<Box>
+					<HStack spacing={6}>
 						{columnIds.map((columnId) => {
 							const columns = todoList.dropZone[columnId];
 
@@ -103,7 +112,7 @@ export const TodoBoard = memo(() => {
 							});
 							return <ColumnDropArea key={columns.id} id={columns.id} title={columns.title} todoArray={todoArray} />;
 						})}
-					</Box>
+					</HStack>
 				</DragDropContext>
 			</Box>
 		</>

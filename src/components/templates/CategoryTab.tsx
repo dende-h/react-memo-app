@@ -19,10 +19,10 @@ export const CategoryTab: VFC<Props> = (props: Props) => {
 	return (
 		<Tabs onChange={(index) => setTabIndex(index)} bg={bg}>
 			<TabList>
-				<Tab>All</Tab>
-				<Tab>Memo</Tab>
-				<Tab>Schedule</Tab>
-				<Tab>Todo</Tab>
+				<Tab fontFamily={"cursive"}>All</Tab>
+				<Tab fontFamily={"cursive"}>Memo</Tab>
+				<Tab fontFamily={"cursive"}>Schedule</Tab>
+				<Tab fontFamily={"cursive"}>Todo</Tab>
 			</TabList>
 			<TabPanels>
 				<TabPanel>{children}</TabPanel>

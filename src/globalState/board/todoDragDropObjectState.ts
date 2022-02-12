@@ -1,7 +1,8 @@
 import { atom } from "recoil";
-import { todoDragDropObject } from "../../initialData/initialDragDropObjectData";
+import { DragDropObjectType } from "../../types/DragDropObjectType";
+const initialData: DragDropObjectType = { dragItem: {}, dropZone: {}, dropZoneOrder: [] };
 
 export const todoDragDropObjectState = atom({
 	key: "todoDragDropObjectState",
-	default: todoDragDropObject
+	default: initialData
 });
