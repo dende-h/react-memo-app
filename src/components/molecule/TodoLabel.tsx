@@ -14,18 +14,21 @@ export const TodoLabel: VFC<Props> = memo((props: Props) => {
 	return todo ? (
 		<Draggable draggableId={todo.id} index={index}>
 			{(provided) => (
-				<Box {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-					<Box
-						backgroundColor={"pink.300"}
-						fontFamily={"メイリオ"}
-						minH={"60px"}
-						p={4}
-						m={2}
-						fontSize="20px"
-						color={"gray.50"}
-					>
-						{todo?.title}
-					</Box>
+				<Box
+					{...provided.draggableProps}
+					{...provided.dragHandleProps}
+					ref={provided.innerRef}
+					backgroundColor={"pink.300"}
+					fontFamily={"メイリオ"}
+					minH={"60px"}
+					p={4}
+					m={2}
+					fontSize="20px"
+					color={"gray.50"}
+					borderRadius="sm"
+					shadow={"md"}
+				>
+					{todo?.title}
 				</Box>
 			)}
 		</Draggable>

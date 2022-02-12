@@ -22,7 +22,7 @@ export const ColumnDropArea: VFC<Props> = memo((props: Props) => {
 				<Divider />
 				<Droppable droppableId={id}>
 					{(provided) => (
-						<Box ref={provided.innerRef} {...provided.droppableProps}>
+						<Box ref={provided.innerRef} {...provided.droppableProps} height="800px">
 							{todoArray?.map(
 								(item, index) => (
 									<TodoLabel key={item?.id} todo={item} index={index} />
