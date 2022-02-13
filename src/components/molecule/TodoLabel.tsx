@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { memo, VFC } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { FetchMemoList } from "../../types/FetchMemoList";
@@ -6,13 +6,14 @@ import { FetchMemoList } from "../../types/FetchMemoList";
 type Props = {
 	todo: FetchMemoList | undefined;
 	index: number;
+	loading: boolean;
 };
 
 export const TodoLabel: VFC<Props> = memo((props: Props) => {
-	const { todo, index } = props;
+	const { todo, index, loading } = props;
 
 	return todo ? (
-		<Draggable draggableId={todo.id} index={index}>
+		<Draggable draggableId={todo.id} index={index} isDragDisabled={loading}>
 			{(provided) => (
 				<Box
 					{...provided.draggableProps}

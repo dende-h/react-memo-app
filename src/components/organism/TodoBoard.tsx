@@ -5,16 +5,25 @@ import toast from "react-hot-toast";
 
 import { useDragDropData } from "../../hooks/useDragDropData";
 import { useMemoApi } from "../../hooks/useMemoListApi";
+import { bodyType } from "../../types/bodyType";
 import { ColumnDropArea } from "../molecule/ColumnDropArea";
 
 type onDragEnd = (result: DropResult, provided: ResponderProvided) => void;
 
 export const TodoBoard = memo(() => {
 	const { todoList, setTodoList } = useDragDropData();
-	const { editMemoList } = useMemoApi();
+	const { editMemoList, loading } = useMemoApi();
 
 	console.log(todoList);
 	const columnIds = todoList.dropZoneOrder;
+
+	const changeMarkDiv = async (draggableId: string, markDivNumber: number) => {
+		const droppedItem = todoList.dragItem[draggableId];
+		const editMark: bodyType = { ...droppedItem, mark_div: markDivNumber };
+		delete editMark.id;
+		await editMemoList(droppedItem.id, editMark);
+		console.log("マーク完了");
+	};
 
 	const onDragEnd: onDragEnd = (result) => {
 		//DragDropContextのpropsドラッグが終了したときの処理
@@ -81,16 +90,19 @@ export const TodoBoard = memo(() => {
 			};
 			setTodoList(newState);
 			if (finish.id === "column-1") {
+				changeMarkDiv(draggableId, 0);
 				toast("Todo has started. Do your best!", {
 					icon: "👏"
 				});
 			}
 			if (finish.id === "column-2") {
+				changeMarkDiv(draggableId, 1);
 				toast("Todo has started. Do your best!", {
 					icon: "👏"
 				});
 			}
 			if (finish.id === "column-3") {
+				changeMarkDiv(draggableId, 2);
 				toast("Todo is complete. Good job!", {
 					icon: "👏"
 				});
@@ -104,13 +116,20 @@ export const TodoBoard = memo(() => {
 					<HStack spacing={6}>
 						{columnIds.map((columnId) => {
 							const columns = todoList.dropZone[columnId];
-
 							const todoArray = columns.todoIds.map((todoId) => {
 								if (todoId) {
 									return todoList.dragItem[todoId];
 								}
 							});
-							return <ColumnDropArea key={columns.id} id={columns.id} title={columns.title} todoArray={todoArray} />;
+							return (
+								<ColumnDropArea
+									key={columns.id}
+									id={columns.id}
+									title={columns.title}
+									todoArray={todoArray}
+									loading={loading}
+								/>
+							);
 						})}
 					</HStack>
 				</DragDropContext>
