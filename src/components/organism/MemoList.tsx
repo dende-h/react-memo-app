@@ -50,6 +50,12 @@ export const MemoList: VFC = memo(() => {
 									<Skeleton height="50px" />
 									<Skeleton height="50px" />
 									<Skeleton height="50px" />
+									<Skeleton height="50px" />
+									<Skeleton height="50px" />
+									<Skeleton height="50px" />
+									<Skeleton height="50px" />
+									<Skeleton height="50px" />
+									<Skeleton height="50px" />
 								</Stack>
 							) : (
 								<Box>
