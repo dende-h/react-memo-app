@@ -6,11 +6,9 @@ export const AppIntroductionImage: VFC = memo(() => {
 	const [isOpen, setIsOpen] = useState(false);
 	const open = () => {
 		setIsOpen(true);
-		console.log(isOpen);
 	};
 	const close = () => {
 		setIsOpen(false);
-		console.log(isOpen);
 	};
 
 	return (

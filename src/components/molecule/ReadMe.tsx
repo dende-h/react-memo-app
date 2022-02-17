@@ -2,7 +2,7 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import { useRecoilState } from "recoil";
 import { SlideSwitch } from "../atoms/SlideSwitch";
 import { PopoverContainer } from "../templates/PopoverContainer";
-import { isOnSwitch } from "../../globalState/boolean/isOnSwitch";
+import { isOnSwitch } from "../../globalState/Readme/isOnSwitch";
 import { useNavigate } from "react-router-dom";
 import { memo, useCallback } from "react";
 import toast from "react-hot-toast";

@@ -1,6 +1,5 @@
 import { Box, Divider, Flex, Skeleton, Spacer, Stack } from "@chakra-ui/react";
 import { memo, useEffect, VFC } from "react";
-import { OneMemo } from "../molecule/OneMemo";
 import { useMemoApi } from "../../hooks/useMemoListApi";
 import { FetchMemoList } from "../../types/FetchMemoList";
 import { memoListState } from "../../globalState/memo/memoListState";
@@ -8,6 +7,7 @@ import { useSetRecoilState } from "recoil";
 import { ModalInput } from "../molecule/ModalInput";
 import { CategoryTab } from "../templates/CategoryTab";
 import { useDragDropData } from "../../hooks/useDragDropData";
+import { MemoListHandle } from "./MemoListHandle";
 
 export const MemoList: VFC = memo(() => {
 	const { fetchMemoList, memoList, loading } = useMemoApi();
@@ -21,7 +21,6 @@ export const MemoList: VFC = memo(() => {
 	useEffect(() => {
 		setMemoList(memoList);
 		setApiData(memoList);
-		console.log("リスト更新しました");
 	}, [memoList]);
 
 	return (
@@ -58,12 +57,7 @@ export const MemoList: VFC = memo(() => {
 									<Skeleton height="50px" />
 								</Stack>
 							) : (
-								<Box>
-									{memoList.map((item, index) => {
-										const oneMemo: FetchMemoList = memoList[index];
-										return <OneMemo key={item.id} oneMemo={oneMemo} />;
-									})}
-								</Box>
+								<MemoListHandle />
 							)}
 						</Box>
 					</CategoryTab>

@@ -7,10 +7,8 @@ import { FetchMemoList } from "../types/FetchMemoList";
 type DragDropObject = DragDropObjectType;
 
 export const useDragDropData = () => {
-	console.log("これが動いてる？");
 	const [todoList, setTodoList] = useRecoilState(todoDragDropObjectState);
 	const setApiData = useCallback((initialMemoData: FetchMemoList[]) => {
-		console.log("setAPI動いた");
 		const categoryIsTodoList = initialMemoData.filter((item) => {
 			return item.category === "TODO";
 		});
@@ -38,15 +36,11 @@ export const useDragDropData = () => {
 			return { [`${item.id}`]: item };
 		});
 
-		console.log(todoDragItemObjectArray);
-
 		const todoDragItemObjects = todoDragItemObjectArray.reduce((result, item) => {
 			const key = Object.keys(item)[0];
 			result[key] = item[key];
 			return result;
 		}, {});
-
-		console.log(todoDragItemObjects);
 
 		const todoDragDropObject: DragDropObject = {
 			dragItem: todoDragItemObjects,

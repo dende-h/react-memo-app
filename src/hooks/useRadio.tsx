@@ -9,7 +9,6 @@ export const useRadio = () => {
 	const onChangeRadio = (props: Props) => {
 		const { value } = props;
 		setRadioValue(value);
-		console.log(radioValue);
 	};
 	return { radioValue, setRadioValue, onChangeRadio };
 };

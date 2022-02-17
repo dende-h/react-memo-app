@@ -17,14 +17,11 @@ export const Calendar: VFC = memo(() => {
 	const schedule = useRecoilValue(categoryIsScheduleSelector);
 
 	useEffect(() => {
-		console.log(schedule);
 		const events = schedule.map((item) => {
 			const eventDate = format(new Date(item.date), "yyyy-MM-dd");
-			console.log(eventDate);
 			const event = { title: item.title, date: eventDate };
 			return event;
 		});
-		console.log(events);
 		setAddEvent(events);
 	}, [schedule]);
 

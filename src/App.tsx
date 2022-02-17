@@ -5,21 +5,13 @@ import { Router } from "./router/Router";
 import { Toaster } from "react-hot-toast";
 import theme from "./theme/theme";
 import { RecoilRoot } from "recoil";
-import { todoDragDropObjectState } from "./globalState/board/todoDragDropObjectState";
-
-const initializeState = (mutableSnapshot: any) => {
-	const item = localStorage.getItem(todoDragDropObjectState.key);
-	if (item) {
-		mutableSnapshot.set(todoDragDropObjectState, JSON.parse(item).value);
-	}
-};
 
 const App = () => {
 	return (
 		<>
 			<BrowserRouter>
 				<ChakraProvider theme={theme}>
-					<RecoilRoot initializeState={initializeState}>
+					<RecoilRoot>
 						<Toaster position="top-center" reverseOrder={false} />
 						<Router />
 					</RecoilRoot>

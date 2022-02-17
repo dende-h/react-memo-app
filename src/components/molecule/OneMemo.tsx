@@ -7,13 +7,10 @@ import {
 	Box,
 	Stack,
 	Divider,
-	Flex,
-	Spacer,
 	HStack
 } from "@chakra-ui/react";
 import { memo, VFC } from "react";
 import { FetchMemoList } from "../../types/FetchMemoList";
-import { TodoCheckBox } from "./TodoCheckBox";
 import { ModalEditor } from "./ModalEditor";
 import { ModalValidate } from "./ModalValidate";
 
@@ -25,18 +22,14 @@ export const OneMemo: VFC<Props> = memo((props: Props) => {
 	return (
 		<>
 			<Accordion allowMultiple>
-				<AccordionItem>
+				<AccordionItem fontFamily={"cursive"}>
 					<AccordionButton bg={"yellow.100"} _hover={{ opacity: "0.8" }}>
 						<Box flex={"1"}>{oneMemo.title}</Box>
 						<AccordionIcon />
 					</AccordionButton>
 					<AccordionPanel pb={4} bg={"gray.50"} borderBottomRadius={"md"}>
 						<Stack spacing={"4"}>
-							<Flex>
-								<Box>{oneMemo.date}</Box>
-								<Spacer />
-								<TodoCheckBox oneMemo={oneMemo} />
-							</Flex>
+							<Box>{oneMemo.date}</Box>
 							<Divider color={"brand.100"} />
 							<Box>{oneMemo.description}</Box>
 							<HStack justify={"center"} spacing={"6"}>
