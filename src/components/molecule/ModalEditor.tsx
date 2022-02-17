@@ -12,7 +12,8 @@ import {
 	Textarea,
 	useDisclosure,
 	Divider,
-	Stack
+	Stack,
+	IconButton
 } from "@chakra-ui/react";
 import { memo, useEffect, useState, VFC } from "react";
 import { useRecoilState } from "recoil";
@@ -25,6 +26,7 @@ import { FetchMemoList } from "../../types/FetchMemoList";
 import { bodyType } from "../../types/bodyType";
 import { CustomDatePickerCalendar } from "./CustomDatePickerCalendar";
 import { RadioCategory } from "./RadioCategory";
+import { EditIcon } from "@chakra-ui/icons";
 
 type Props = {
 	editMemo: FetchMemoList;
@@ -81,7 +83,14 @@ export const ModalEditor: VFC<Props> = memo((props: Props) => {
 
 	return (
 		<>
-			<Button onClick={onOpen}>edit</Button>
+			<IconButton
+				size={"sm"}
+				colorScheme="twitter"
+				aria-label="input"
+				icon={<EditIcon />}
+				borderRadius="full"
+				onClick={onOpen}
+			/>
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />
 				<ModalContent shadow={"dark-lg"}>

@@ -12,7 +12,8 @@ import {
 	ModalOverlay,
 	Textarea,
 	useDisclosure,
-	Stack
+	Stack,
+	IconButton
 } from "@chakra-ui/react";
 import { memo, useEffect, useState, VFC } from "react";
 import { useRecoilState } from "recoil";
@@ -24,6 +25,7 @@ import { useTextArea } from "../../hooks/useTextArea";
 import { CustomDatePickerCalendar } from "./CustomDatePickerCalendar";
 import { RadioCategory } from "./RadioCategory";
 import format from "date-fns/format";
+import { AddIcon } from "@chakra-ui/icons";
 
 export const ModalInput: VFC = memo(() => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -54,7 +56,7 @@ export const ModalInput: VFC = memo(() => {
 
 	return (
 		<>
-			<Button onClick={onOpen}>+</Button>
+			<IconButton colorScheme="twitter" aria-label="input" icon={<AddIcon />} borderRadius="full" onClick={onOpen} />
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />
 				<ModalContent shadow={"dark-lg"}>
