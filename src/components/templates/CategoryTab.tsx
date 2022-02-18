@@ -14,7 +14,6 @@ export const CategoryTab: VFC<Props> = (props: Props) => {
 		["red.900", "teal.900", "blue.900", "purple.900"]
 	);
 	const [tabIndex, setTabIndex] = useRecoilState(tabIndexState);
-	console.log(tabIndex);
 	const bg = colors[tabIndex];
 	return (
 		<Tabs onChange={(index) => setTabIndex(index)} bg={bg}>

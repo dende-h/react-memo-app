@@ -2,7 +2,8 @@ import { AxiosResponse } from "axios";
 import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { isAuthenticated } from "../globalState/isAuthenticated";
 import { memoListState } from "../globalState/memo/memoListState";
 import { memoApi } from "../libs/api";
 import { FetchMemoList } from "../types/FetchMemoList";
@@ -10,10 +11,13 @@ import { FetchMemoList } from "../types/FetchMemoList";
 type body = Omit<FetchMemoList, "id">;
 
 export const useMemoApi = () => {
+	const setIsAuth = useSetRecoilState(isAuthenticated);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [memoList, setMemoList] = useRecoilState<Array<FetchMemoList>>(memoListState);
 	const navigate = useNavigate();
 	const authErrorNavigate = useCallback(() => {
+		setIsAuth(false);
+		localStorage.removeItem("authToken");
 		toast.error("ログアウトされました。再度ログインしてください");
 		navigate("/login");
 	}, []);
@@ -62,7 +66,9 @@ export const useMemoApi = () => {
 	const editMarkDiv = useCallback(async (id: string | undefined, body: body) => {
 		setLoading(true);
 		try {
-			memoApi.put(`/memo/${id}`, body);
+			await memoApi.put(`/memo/${id}`, body);
+			const result: AxiosResponse<Array<FetchMemoList>> = await memoApi.get("/memos");
+			setMemoList(result.data);
 			setLoading(false);
 		} catch (error) {
 			authErrorNavigate();

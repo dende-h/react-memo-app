@@ -25,7 +25,16 @@ export const MemoList: VFC = memo(() => {
 
 	return (
 		<>
-			<Box bg="white" w={["sm", "md", "lg"]} minHeight={"sm"} m="4" borderRadius={"lg"} p={"2"} shadow={"lg"}>
+			<Box
+				bg="white"
+				w={["sm", "md", "lg"]}
+				height={"850px"}
+				m="4"
+				borderRadius={"lg"}
+				p={"2"}
+				shadow={"lg"}
+				overflowY="scroll"
+			>
 				<Stack spacing={"2"}>
 					<Flex justify={"center"}>
 						<Box marginLeft={5}></Box>

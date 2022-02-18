@@ -16,7 +16,7 @@ export const ColumnDropArea: VFC<Props> = memo((props: Props) => {
 
 	return (
 		<>
-			<Stack backgroundColor={"purple.50"} p={"4"} borderRadius={"md"} shadow={"lg"} minH="850px" w="450px">
+			<Stack backgroundColor={"purple.50"} p={"4"} borderRadius={"md"} shadow={"lg"} h="850px" w="450px">
 				<Text as={"h1"} fontSize={"24px"} fontFamily={"cursive"}>
 					{title}
 				</Text>

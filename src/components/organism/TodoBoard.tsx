@@ -29,7 +29,7 @@ export const TodoBoard = memo(() => {
 		const droppedItem = todoList.dragItem[draggableId];
 		const editMark: bodyType = { ...droppedItem, mark_div: markDivNumber };
 		delete editMark.id;
-		await editMarkDiv(droppedItem.id, editMark);
+		editMarkDiv(droppedItem.id, editMark);
 	};
 
 	const onDragEnd: onDragEnd = (result) => {
@@ -105,7 +105,7 @@ export const TodoBoard = memo(() => {
 	};
 	return (
 		<>
-			<Box w={"100%"} m={4}>
+			<Box w={"100%"} m={4} overflowX="scroll">
 				{isCompleted ? (
 					<ModalTodoProgress onClose={onClose} isOpen={isOpen} modalImage={completedImage}>
 						Completed! Good job!!
