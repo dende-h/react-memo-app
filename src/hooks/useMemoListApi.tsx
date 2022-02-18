@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { memoListState } from "../globalState/memoListState";
+import { memoListState } from "../globalState/memo/memoListState";
 import { memoApi } from "../libs/api";
 import { FetchMemoList } from "../types/FetchMemoList";
 
@@ -42,8 +42,7 @@ export const useMemoApi = () => {
 	const editMemoList = useCallback(async (id: string | undefined, body: body) => {
 		setLoading(true);
 		try {
-			const result = await memoApi.put(`/memo/${id}`, body);
-			console.log(result.data);
+			await memoApi.put(`/memo/${id}`, body);
 			fetchMemoList();
 		} catch (error) {
 			authErrorNavigate();
@@ -59,5 +58,15 @@ export const useMemoApi = () => {
 			authErrorNavigate();
 		}
 	}, []);
-	return { fetchMemoList, inputMemoList, editMemoList, deleteMemoList, memoList, loading };
+
+	const editMarkDiv = useCallback(async (id: string | undefined, body: body) => {
+		setLoading(true);
+		try {
+			memoApi.put(`/memo/${id}`, body);
+			setLoading(false);
+		} catch (error) {
+			authErrorNavigate();
+		}
+	}, []);
+	return { fetchMemoList, inputMemoList, editMemoList, deleteMemoList, editMarkDiv, memoList, loading };
 };

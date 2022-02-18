@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import ja from "date-fns/locale/ja";
 import format from "date-fns/format";
 import { useSetRecoilState } from "recoil";
-import { dateState } from "../../globalState/dateState";
+import { dateState } from "../../globalState/date/dateState";
 
 registerLocale("ja", ja);
 

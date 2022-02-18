@@ -1,24 +1,28 @@
-import { Box, Divider, Flex, Spacer, Stack } from "@chakra-ui/react";
+import { Box, Divider, Flex, Skeleton, Spacer, Stack } from "@chakra-ui/react";
 import { memo, useEffect, VFC } from "react";
-import { OneMemo } from "./OneMemo";
 import { useMemoApi } from "../../hooks/useMemoListApi";
 import { FetchMemoList } from "../../types/FetchMemoList";
-import { memoListState } from "../../globalState/memoListState";
+import { memoListState } from "../../globalState/memo/memoListState";
 import { useSetRecoilState } from "recoil";
 import { ModalInput } from "../molecule/ModalInput";
 import { CategoryTab } from "../templates/CategoryTab";
+import { useDragDropData } from "../../hooks/useDragDropData";
+import { MemoListHandle } from "./MemoListHandle";
 
 export const MemoList: VFC = memo(() => {
-	const { fetchMemoList, memoList } = useMemoApi();
+	const { fetchMemoList, memoList, loading } = useMemoApi();
 	const setMemoList = useSetRecoilState<FetchMemoList[]>(memoListState);
+	const { setApiData } = useDragDropData();
 
 	useEffect(() => {
 		fetchMemoList();
 	}, []);
+
 	useEffect(() => {
 		setMemoList(memoList);
-		console.log("リスト更新しました");
+		setApiData(memoList);
 	}, [memoList]);
+
 	return (
 		<>
 			<Box bg="white" w={["sm", "md", "lg"]} minHeight={"sm"} m="4" borderRadius={"lg"} p={"2"} shadow={"lg"}>
@@ -26,7 +30,7 @@ export const MemoList: VFC = memo(() => {
 					<Flex justify={"center"}>
 						<Box marginLeft={5}></Box>
 						<Spacer />
-						<Box fontFamily={"serif"} fontSize={"xx-large"}>
+						<Box fontFamily={"cursive"} fontSize={"xx-large"}>
 							MemoList
 						</Box>
 						<Spacer />
@@ -37,12 +41,24 @@ export const MemoList: VFC = memo(() => {
 					<CategoryTab>
 						<Box>
 							<Divider />
-							<Box>
-								{memoList.map((item, index) => {
-									const oneMemo: FetchMemoList = memoList[index];
-									return <OneMemo key={item.id} oneMemo={oneMemo} />;
-								})}
-							</Box>
+							{loading ? (
+								<Stack>
+									<Skeleton height="50px" />
+									<Skeleton height="50px" />
+									<Skeleton height="50px" />
+									<Skeleton height="50px" />
+									<Skeleton height="50px" />
+									<Skeleton height="50px" />
+									<Skeleton height="50px" />
+									<Skeleton height="50px" />
+									<Skeleton height="50px" />
+									<Skeleton height="50px" />
+									<Skeleton height="50px" />
+									<Skeleton height="50px" />
+								</Stack>
+							) : (
+								<MemoListHandle />
+							)}
 						</Box>
 					</CategoryTab>
 				</Stack>

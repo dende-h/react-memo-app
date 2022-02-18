@@ -8,7 +8,6 @@ export const Login = memo(() => {
 	const { state } = useLocation();
 	const [trueCount, setTrueCount] = useState<number>(0);
 	useEffect(() => {
-		console.log(trueCount);
 		if (state === true) {
 			setTrueCount(trueCount + 1);
 		}

@@ -7,6 +7,7 @@ import {
 	CSSObject,
 	EffectProps,
 	SpaceProps,
+	SpinnerProps,
 	ThemeTypings,
 	ThemingProps,
 	UseRadioProps
@@ -46,4 +47,12 @@ export type CheckBoxProps = {
 	isChecked?: boolean;
 	colorScheme?: ThemeTypings["colorSchemes"] | (string & {});
 	size?: ThemingProps<"Button">["size"];
+};
+
+export type SpinnerPropsType = {
+	size?: ThemingProps<"Spinner">["size"];
+	color?: SpinnerProps["color"];
+	emptyColor?: SpinnerProps["emptyColor"];
+	speed?: SpinnerProps["speed"];
+	thickness?: SpinnerProps["thickness"];
 };

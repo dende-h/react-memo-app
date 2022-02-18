@@ -1,5 +1,5 @@
-export type FetchMemoList = {
-	id: string;
+export type bodyType = {
+	id?: string;
 	title: string;
 	category: string;
 	description: string;

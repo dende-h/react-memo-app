@@ -1,5 +1,7 @@
+import { DeleteIcon } from "@chakra-ui/icons";
 import {
 	Button,
+	IconButton,
 	Modal,
 	ModalBody,
 	ModalCloseButton,
@@ -27,7 +29,14 @@ export const ModalValidate: VFC<Props> = memo((props: Props) => {
 
 	return (
 		<>
-			<Button onClick={onOpen}>delete</Button>
+			<IconButton
+				size={"sm"}
+				colorScheme="twitter"
+				aria-label="input"
+				icon={<DeleteIcon />}
+				borderRadius="full"
+				onClick={onOpen}
+			/>
 
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />

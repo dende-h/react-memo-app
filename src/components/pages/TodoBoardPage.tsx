@@ -1,19 +1,19 @@
 import { memo } from "react";
-import { Calendar } from "../organism/Calendar";
 import { MemoList } from "../organism/MemoList";
 import HeaderLayout from "../templates/HeaderLayout";
 import { Flex } from "@chakra-ui/react";
+import { TodoBoard } from "../organism/TodoBoard";
 
-const TopPage = memo(() => {
+const TodoBoardPage = memo(() => {
 	return (
 		<>
 			<HeaderLayout>
 				<Flex>
 					<MemoList />
-					<Calendar />
+					<TodoBoard />
 				</Flex>
 			</HeaderLayout>
 		</>
 	);
 });
-export default TopPage;
+export default TodoBoardPage;
