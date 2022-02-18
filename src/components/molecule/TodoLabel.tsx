@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { memo, VFC } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { FetchMemoList } from "../../types/FetchMemoList";
