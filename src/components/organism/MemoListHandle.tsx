@@ -14,7 +14,6 @@ export const MemoListHandle: VFC = memo(() => {
 	const categoryIsTodoList = useRecoilValue(categoryIsTodoSelector);
 	const allMemoList = useRecoilValue(memoListState);
 	const tabIndex = useRecoilValue(tabIndexState);
-	console.log(tabIndex);
 
 	return (
 		<>

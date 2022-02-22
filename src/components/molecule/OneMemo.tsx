@@ -35,7 +35,13 @@ export const OneMemo: VFC<Props> = memo((props: Props) => {
 			<Accordion allowMultiple>
 				<AccordionItem fontFamily={"cursive"}>
 					<AccordionButton bg={"yellow.100"} _hover={{ opacity: "0.8" }}>
-						<Box flex={"1"}>{oneMemo.title}</Box>
+						{oneMemo.mark_div === 2 ? (
+							<Box as={"del"} flex={"1"} color="gray.500">
+								{oneMemo.title}
+							</Box>
+						) : (
+							<Box flex={"1"}>{oneMemo.title}</Box>
+						)}
 						<AccordionIcon />
 					</AccordionButton>
 					<AccordionPanel pb={4} bg={"gray.50"} borderBottomRadius={"md"}>

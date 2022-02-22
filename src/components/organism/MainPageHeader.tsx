@@ -1,11 +1,16 @@
 import { Box, Flex, Spacer } from "@chakra-ui/react";
 import { memo } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { isAuthenticated } from "../../globalState/isAuthenticated";
 import { PrimaryButton } from "../atoms/PrimaryButton";
 
 export const MainPageHeader = memo(() => {
+	const setIsAuth = useSetRecoilState(isAuthenticated);
 	const navigate = useNavigate();
 	const onClickRouter = () => {
+		setIsAuth(false);
+		localStorage.removeItem("authToken");
 		navigate("/");
 	};
 	return (
