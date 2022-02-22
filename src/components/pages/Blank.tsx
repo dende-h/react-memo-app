@@ -1,6 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import { memo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Head } from "../templates/Head";
 
 export const Blank = memo(() => {
 	const { state } = useLocation();
@@ -10,8 +11,14 @@ export const Blank = memo(() => {
 	}, 5000);
 
 	return (
-		<Box bg="black" w="100%" h="2000px">
-			これは嘘です
-		</Box>
+		<>
+			<Head>
+				<meta charSet="utf-8" />
+				<title>BluffPage -Note me</title>
+			</Head>
+			<Box bg="black" w="100%" h="2000px">
+				これは嘘です
+			</Box>
+		</>
 	);
 });

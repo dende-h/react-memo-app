@@ -2,6 +2,7 @@ import { memo, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useLocation } from "react-router-dom";
 import { LoginForm } from "../organism/LoginForm";
+import { Head } from "../templates/Head";
 import TitleHeaderFooterLayout from "../templates/TitleHeaderFooterLayout";
 
 export const Login = memo(() => {
@@ -18,8 +19,14 @@ export const Login = memo(() => {
 		}
 	}, [state]);
 	return (
-		<TitleHeaderFooterLayout>
-			<LoginForm />
-		</TitleHeaderFooterLayout>
+		<>
+			<Head>
+				<meta charSet="utf-8" />
+				<title>LoginPage -Note me</title>
+			</Head>
+			<TitleHeaderFooterLayout>
+				<LoginForm />
+			</TitleHeaderFooterLayout>
+		</>
 	);
 });

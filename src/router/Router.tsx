@@ -17,7 +17,7 @@ export const Router: VFC = (): ReactElement => {
 			<Route path="/login" element={isAuth ? <TopPage /> : <Login />} />
 			<Route path="/top" element={isAuth ? <TopPage /> : <Login />} />
 			<Route path="/board" element={isAuth ? <TodoBoardPage /> : <Login />} />
-			<Route path="/blank" element={isAuth ? <Blank /> : <Login />} />
+			<Route path="/blank" element={<Blank />} />
 			<Route path="*" element={<Page404 />} />
 		</Routes>
 	);
